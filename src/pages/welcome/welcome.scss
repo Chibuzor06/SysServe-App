@@ -1,0 +1,17 @@
+page-welcome {
+  div.row-item:active {
+    background-color: #E4DCDC;
+    color: black;
+    // border-left: 6px solid #333333;
+  }
+  div.row-item {
+    // background-color: gray;
+    border-left: 6px solid transparent;
+  }
+  .border {
+    background-color: #333333;
+  }
+  hr {
+    height: 0;
+  }
+}

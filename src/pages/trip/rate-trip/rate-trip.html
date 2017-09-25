@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Rate Trip</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div padding></div>
+  <form #f="ngForm" (ngSubmit)="onRateTrip(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label>Pick up Date/Time</ion-label>
+        <ion-col item-end col-6>{{ trip?.pickupDate }}</ion-col>
+      </ion-item>
+      <ion-item>
+        <ion-label>Departure</ion-label>
+        <ion-col item-end col-6>{{trip?.departure}}</ion-col>
+      </ion-item>
+      <ion-item>
+        <ion-label>Destination</ion-label>
+        <ion-col item-end col-6>{{trip?.destination}}</ion-col>
+      </ion-item>
+      <br>
+    <!-- </ion-list> -->
+    <!-- <ion-list no-lines> -->
+      <!-- <ion-item> -->
+      <!-- <div padding> -->
+      <ion-row>
+        <ion-col col-3><h5 class="mycol">Rate</h5></ion-col>
+        <ion-col col-7 class="mycol"><h3>
+          <span class="rating">
+            <a (click)="onStarClick(0)"><ion-icon [name]="starName[0]"></ion-icon></a>
+            <a (click)="onStarClick(1)"><ion-icon [name]="starName[1]"></ion-icon></a>
+            <a (click)="onStarClick(2)"><ion-icon [name]="starName[2]"></ion-icon></a>
+            <a (click)="onStarClick(3)"><ion-icon [name]="starName[3]"></ion-icon></a>
+            <a (click)="onStarClick(4)"><ion-icon [name]="starName[4]"></ion-icon></a>
+          </span></h3>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+      <ion-item>
+        <ion-label>Comments</ion-label>
+        <ion-textarea placeholder="Say something about the trip." name="comments" ngModel></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <button ion-button
+      [disabled]="!rated"
+      class="white" col-6 offset-3 type="submit"
+    >Submit</button>
+  </form>
+
+</ion-content>

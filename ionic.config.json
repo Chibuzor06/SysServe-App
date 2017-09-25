@@ -1,5 +1,14 @@
 {
   "name": "reservation-app",
   "app_id": "",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  },
+  "proxies": [
+    {
+      "path": "/sysserve",
+      "proxyUrl": "http://test.fleet.sysservesolutions.com/"
+    }
+  ]
 }

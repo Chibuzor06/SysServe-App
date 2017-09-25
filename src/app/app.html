@@ -1,1 +1,49 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="nav" >
+  <ion-header class="menu" no-border >
+
+    <ion-toolbar class="toolBar">
+      <div class="space menu"></div>
+      <ion-title class="menu" mod="md">Menu</ion-title>
+      <div class="space menu"></div>
+    </ion-toolbar>
+
+  </ion-header>
+  <ion-content class="menu">
+    <ion-list no-lines>
+      <button class="menu-button"
+        ion-item
+        icon-left
+        (click)="onLoadPage('NewReservationPage')">
+        <ion-icon name="book"></ion-icon>
+        New Reservation
+      </button>
+      <button class="menu-button"
+        ion-item icon-left (click)="onViewTrips()">
+        <ion-icon name="car"></ion-icon>
+        My Trips
+      </button>
+      <button class="menu-button"
+        ion-item icon-left (click)="onViewMessages()">
+        <ion-icon name="paper-plane"></ion-icon>
+        Messages
+      </button>
+      <button class="menu-button"
+        ion-item icon-left>
+        <ion-icon name="person"></ion-icon>
+        My Profile
+      </button>
+      <button class="menu-button"
+        ion-item icon-left
+        (click)="onLogout()">
+        <ion-icon name="log-out"></ion-icon>
+        Logout
+      </button>
+    </ion-list>
+  </ion-content>
+  <ion-footer no-border>
+    <!-- <ion-toolbar></ion-toolbar> -->
+    <div class="space"></div>
+  </ion-footer>
+</ion-menu>
+
+<ion-nav [root]="rootPage" #nav></ion-nav>

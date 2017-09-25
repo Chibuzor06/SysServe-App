@@ -14,3 +14,45 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+// .menu-inner {
+//   ion-toolbar.toolbar {
+//     min-height: 50px;
+//     background-color: blue !important;
+//     background: blue;
+//   }
+//   .space {
+//     height: 50px;
+//   }
+// }
+.space {
+      height: 50px;
+}
+.menu {
+  // background-color: #35343D;
+  background-color: inherit;
+  border: none;
+  box-sizing: content-box;
+}
+.menu-button{
+  background-color: inherit;
+}
+.toolBar {
+  background-color: map-get($colors, primary);
+  background: map-get($colors, primary);
+}
+.toolbar-md{
+  padding: 10px;
+  border: none;
+  color: green;
+  background-color: map-get($colors, primary);
+  background: map-get($colors, primary);
+}
+// ion-menu{
+//   ion-content{
+//    background-color:red !important;
+//   }
+//  }
+// @import "../theme/dark.scss";
+
+

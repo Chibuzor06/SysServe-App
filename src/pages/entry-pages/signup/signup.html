@@ -1,0 +1,41 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onClose()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSignUp(f)">
+    <ion-list>
+      <ion-item>
+        <ion-input text-center name="firstName" type="text" placeholder="First Name" required ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input text-center name="lastName" type="text" placeholder="Last Name" required ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input text-center name="email" type="email" placeholder="Email" email required ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input text-center name="phone" type="number" placeholder="Phone" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input text-center name="clientCode" type="text" placeholder="Company Code" ngModel></ion-input>
+      </ion-item>
+      <!-- <ion-item></ion-item> -->
+    </ion-list>
+    <ion-row>
+      <ion-col col-6 offset-3>
+        <button ion-button  [disabled]="!f.valid" large block type="submit"><h6>Register</h6></button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

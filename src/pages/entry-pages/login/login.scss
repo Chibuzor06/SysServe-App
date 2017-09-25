@@ -1,0 +1,21 @@
+page-login {
+  h6 {
+    color: white;
+    padding-top: 6%;
+
+  }
+  .space {
+    margin-top: 100px;
+  }
+  .flex-container {
+    display: -webkit-flex;
+    display: flex;
+    // width: inherit;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+  .flex-item {
+    max-width: 300px;
+    margin:auto;
+  }
+}

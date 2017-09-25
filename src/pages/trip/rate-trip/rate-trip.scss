@@ -1,0 +1,28 @@
+page-rate-trip {
+  .ios-star{
+    color: yellow;
+  }
+  .rating {
+    // padding: 4px;
+    border-radius: 10px;
+    margin:auto;
+    background-color: white;
+    // width: 50%;
+  }
+  .mycol {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+  a {
+    // display: inline-block;
+    margin: 0 auto;
+  }
+  .pad {
+    margin: 0 auto;
+  }
+  .white{
+    -webkit-text-fill-color: white;
+  }
+}
