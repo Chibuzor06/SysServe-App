@@ -47,7 +47,7 @@ export class DataAcessService {
   }
 
   rateTrip(id: string, rating: number, ratingRemark: string) {
-    const query = '/sysserve/mobile/RateTrip.do?user.token='+ this.userSrvc.getUserToken() +
+    const query = '/sysserve/mobile/SubmitRating.do?user.token='+ this.userSrvc.getUserToken() +
     '&taskTrip.id=' + id + '&taskTrip.rating=' + rating + '&taskTrip.ratingRemark=' + ratingRemark;
     return this.http.get(query);
   }
