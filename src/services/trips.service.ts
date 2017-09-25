@@ -39,7 +39,7 @@ export class TripsService {
               trip.id, new Date(trip.expectedEndDate + 'Z').toDateString());
             }
           );
-          console.log(formattedTrips);
+          // console.log(formattedTrips);
           return formattedTrips;
         }
       )

@@ -19,7 +19,7 @@ export class TripPage {
   trip: Trip;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.trip = this.navParams.get('trip');
-    console.log(this.trip);
+    // console.log(this.trip);
   }
 
   ionViewWillLoad() {
