@@ -1,14 +1,11 @@
 {
-  "name": "reservation-app",
+  "name": "Sixt App",
   "app_id": "",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
   },
   "proxies": [
-    {
-      "path": "/sysserve",
-      "proxyUrl": "http://test.fleet.sysservesolutions.com/"
-    }
+
   ]
 }
