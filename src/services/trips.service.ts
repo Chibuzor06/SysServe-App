@@ -32,7 +32,7 @@ export class TripsService {
           }
           const formattedTrips = trips.map(
             trip => {
-              return new Trip(trip.departure, trip.destination, new Date(trip.pickUpDate + 'Z').toDateString(),
+              return new Trip(trip.departure, trip.destination, (<string>trip.pickUpDate).slice(0, 10),
               NaN, trip.noOfPassenger, trip.status,
               (trip.personnel ? new Driver(trip.personnel.fullName, trip.personnel.phone) : null),
               (trip.vehicle ? new Vehicle(trip.vehicle.plateNumber, trip.vehicle.make + ' ' + trip.vehicle.model, trip.vehicle.color) : null),

@@ -7,17 +7,17 @@ page-login {
   .space {
     margin-top: 100px;
   }
-  .flex-container {
-    display: -webkit-flex;
-    display: flex;
-    // width: inherit;
-    -webkit-justify-content: center;
-    justify-content: center;
-  }
-  .flex-item {
-    max-width: 300px;
-    margin:auto;
-  }
+  // .flex-container {
+  //   display: -webkit-flex;
+  //   display: flex;
+  //   // width: inherit;
+  //   -webkit-justify-content: center;
+  //   justify-content: center;
+  // }
+  // .flex-item {
+  //   max-width: 300px;
+  //   margin:auto;
+  // }
   .background {
     // background-color: white;
     position: relative;
@@ -28,12 +28,15 @@ page-login {
   }
 
   .form {
-    margin-top: 100%;
+    top: 64%;
     z-index: 2;
+    position: relative;
     border-radius: 10px;
   }
   .white-input {
     background-color: white;
-    color: black;
+    color: #524E4E;
+    margin-top: 3px;
+    border-radius: 18px;
   }
 }
