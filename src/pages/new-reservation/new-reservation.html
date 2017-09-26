@@ -22,7 +22,7 @@
   <form #f="ngForm" (ngSubmit)="onNewReservation(f)" >
     <div [ngSwitch]="segment">
       <div *ngSwitchCase="'trip'">
-        <ion-list>
+        <ion-list style="margin-top:20px;">
           <ion-item>
             <ion-label>
               Trip Type
@@ -34,14 +34,18 @@
           </ion-item>
           <div *ngIf="type == 'Pick Up/Drop Off'">
             <ion-item>
+              <ion-icon name="ios-jet-outline" item-left></ion-icon>
               <ion-input required name="departure" type="text" placeholder="Departure" [(ngModel)]="departure"></ion-input>
             </ion-item>
             <ion-item>
+              <ion-icon name="ios-globe-outline" item-left></ion-icon>
               <ion-input required name="destination" type="text" placeholder="Destination" [(ngModel)]="destination"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label floating>Pick up Date/Time</ion-label>
-              <ion-datetime required name="dateTime" displayFormat="MMM/DD/YYYY, HH:mm"  pickerFormat="MM/DD/YYYY, HH:mm"
+              <!-- <ion-label floating>Pick up Date/Time</ion-label> -->
+              <ion-icon name="ios-calendar-outline" item-left></ion-icon>
+              <ion-datetime required name="dateTime" no-padding placeholder="Pickup Date/Time"
+                displayFormat="MMM/DD/YYYY, HH:mm"  pickerFormat="MM/DD/YYYY, HH:mm"
                 [(ngModel)]="dateTime"></ion-datetime>
             </ion-item>
             <ion-item>
@@ -50,36 +54,45 @@
             </ion-item>
             <!-- <div *ngIf="returnTrip"> -->
             <ion-item *ngIf="returnTrip">
-              <ion-label floating>Return trip Date/Time</ion-label>
-              <ion-datetime required name="returnDateTime" displayFormat="MMM/DD/YYYY, HH:mm" pickerFormat="MM/DD/YYYY, HH:mm"
+              <!-- <ion-label floating>Return trip Date/Time</ion-label> -->
+              <ion-icon name="ios-calendar" item-left></ion-icon>
+              <ion-datetime required name="returnDateTime" no-padding placeholder="Return Date/Time"
+                displayFormat="MMM/DD/YYYY, HH:mm" pickerFormat="MM/DD/YYYY, HH:mm"
                 [(ngModel)]="returnDateTime" text-center></ion-datetime>
             </ion-item>
             <ion-item>
+              <ion-icon name="ios-people-outline" item-left></ion-icon>
               <ion-input required type="number" name="passengers" placeholder="No. of passengers" [(ngModel)]="passengers"></ion-input>
             </ion-item>
             <ion-item>
+                <ion-icon name="ios-person-add-outline" item-left></ion-icon>
               <ion-input required type="text" name="passengerName" placeholder="Passenger Name" [(ngModel)]="passengerName"></ion-input>
             </ion-item>
           </div>
           <div *ngIf="type == 'Daily Rental'">
             <ion-item>
+              <ion-icon name="ios-jet-outline" item-left></ion-icon>
               <ion-input required name="departure" type="text" placeholder="Departure" [(ngModel)]="departure"></ion-input>
             </ion-item>
             <ion-item>
+              <ion-icon name="ios-globe-outline" item-left></ion-icon>
               <ion-input required name="destination" type="text" placeholder="Destination" [(ngModel)]="destination"></ion-input>
             </ion-item>
             <ion-item text-center>
-              <ion-datetime required name="dateTime" displayFormat="MMM/DD/YYYY, HH:mm"  pickerFormat="MM/DD/YYYY, HH:mm"
+              <ion-icon name="ios-calendar-outline" item-left></ion-icon>
+              <ion-datetime required name="dateTime" no-padding placeholder="Return Date/Time"
+                displayFormat="MMM/DD/YYYY, HH:mm"  pickerFormat="MM/DD/YYYY, HH:mm"
                 [(ngModel)]="dateTime" placeholder="Pick up Date/Time" text-center></ion-datetime>
             </ion-item>
             <ion-item>
+              <ion-icon name="ios-partly-sunny-outline" item-left></ion-icon>
               <ion-input required type="number" name="days" placeholder="No. of days" [(ngModel)]="noOfDays"></ion-input>
             </ion-item>
           </div>
         </ion-list>
       </div>
       <div *ngSwitchCase="'vehicle'">
-        <ion-list>
+        <ion-list style="margin-top:20px;">
           <ion-item>
             <ion-label>
               Vehicle Class

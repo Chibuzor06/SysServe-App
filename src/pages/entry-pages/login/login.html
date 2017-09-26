@@ -17,10 +17,13 @@
     <form #form="ngForm" (ngSubmit)="onLogin(form)">
       <ion-list >
         <ion-item class="white-input">
-          <ion-input name="username" text-center type="email" placeholder="Email" email required ngModel></ion-input>
+          <ion-icon item-left name="ios-mail-outline"></ion-icon>
+          <ion-input name="username" type="email" placeholder="Email" email required ngModel></ion-input>
         </ion-item>
         <ion-item class="white-input">
-          <ion-input name="password" text-center type="password" placeholder="Password" required ngModel></ion-input>
+          <ion-icon item-left name="ios-lock-outline"></ion-icon>
+          <ion-input name="password" type="password" placeholder="Password" required ngModel></ion-input>
+          <!-- <button ion-button clear color="dark" type="button" item-left> <ion-icon name="eye"> </ion-icon> </button> -->
         </ion-item>
         <ion-row>
           <ion-col col-6 offset-3>

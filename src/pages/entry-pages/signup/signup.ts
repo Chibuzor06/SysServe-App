@@ -44,9 +44,13 @@ export class SignupPage {
               buttons: ['Ok']
             });
             alert.present();
+            alert.onDidDismiss(
+              () => {
+                this.onClose();
+              }
+            );
+            this.onClose();
             console.log('data here', data1);
-            // this.userService.setUserWithResponseData(data);
-            // this.navCtrl.setRoot('WelcomePage');
           }
           console.log(data.json());
         },

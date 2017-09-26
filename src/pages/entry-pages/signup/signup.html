@@ -16,19 +16,24 @@
   <form #f="ngForm" (ngSubmit)="onSignUp(f)">
     <ion-list>
       <ion-item>
-        <ion-input text-center name="firstName" type="text" placeholder="First Name" required ngModel></ion-input>
+        <ion-icon name="ios-person-outline" item-left></ion-icon>
+        <ion-input name="firstName" type="text" placeholder="First Name" required ngModel></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input text-center name="lastName" type="text" placeholder="Last Name" required ngModel></ion-input>
+        <ion-icon name="ios-person-outline" item-left></ion-icon>
+        <ion-input name="lastName" type="text" placeholder="Last Name" required ngModel></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input text-center name="email" type="email" placeholder="Email" email required ngModel></ion-input>
+        <ion-icon name="ios-mail-outline" item-left></ion-icon>
+        <ion-input name="email" type="email" placeholder="Email" email required ngModel></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input text-center name="phone" type="number" placeholder="Phone" ngModel></ion-input>
+        <ion-icon name="ios-call-outline" item-left></ion-icon>
+        <ion-input name="phone" type="number" placeholder="Phone" ngModel></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input text-center name="clientCode" type="text" placeholder="Company Code" ngModel></ion-input>
+        <ion-icon name="ios-keypad-outline" item-left></ion-icon>
+        <ion-input name="clientCode" type="text" placeholder="Company Code" ngModel></ion-input>
       </ion-item>
       <!-- <ion-item></ion-item> -->
     </ion-list>
