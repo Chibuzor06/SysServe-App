@@ -2,7 +2,7 @@ import { DataAcessService } from './../../../services/data-access.service';
 import { NgForm } from '@angular/forms';
 import { Trip } from './../../../models/trip.model';
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavParams, AlertController, NavController } from 'ionic-angular';
 
 
 @IonicPage()
@@ -18,7 +18,8 @@ export class RateTripPage {
   rated: boolean = false;
 
   constructor(
-    private navParams: NavParams, private dataSrvc: DataAcessService, private alertCtrl: AlertController
+    private navParams: NavParams, private dataSrvc: DataAcessService, private alertCtrl: AlertController,
+    private navCtrl: NavController
   ) {
     this.trip = this.navParams.get('trip')? this.navParams.get('trip'): {};
   }
@@ -54,10 +55,30 @@ export class RateTripPage {
       alert.present();
       return;
     }
-    console.log('Star: ', this.rating, ' comments: ', form.value.comments, ' Trip id: ', this.trip.ID);
-    this.dataSrvc.rateTrip(this.trip.ID, this.rating, form.value.comments).subscribe(
+    console.log('Star: ', this.rating, ' comments: ', form.value.comments, ' Trip id: ', this.trip.taskTripId);
+    this.dataSrvc.rateTrip(this.trip.taskTripId, this.rating, form.value.comments).subscribe(
       data => {
-        console.log(data.json());
+        const response = data.json();
+        if (response.response == 'success') {
+          const alert = this.alertCtrl.create({
+            message: 'Your rating has been recorded successfully',
+            buttons: ['Ok']
+          });
+          alert.present();
+          alert.onDidDismiss(
+            () => {
+              this.navCtrl.pop();
+            }
+          );
+        }
+        else {
+          const alert = this.alertCtrl.create({
+            title: 'Unable to rater',
+            message: 'An error occured while processing your rating. Please try again',
+            buttons: ['Ok']
+          });
+          alert.present();
+        }
       },
       err => {
         console.log(err);

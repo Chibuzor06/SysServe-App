@@ -18,4 +18,22 @@ page-login {
     max-width: 300px;
     margin:auto;
   }
+  .background {
+    // background-color: white;
+    position: relative;
+    background: url('../assets/images/welcome.jpg') no-repeat transparent;
+    z-index: 1;
+    // height: 45%;
+    background-size: cover;
+  }
+
+  .form {
+    margin-top: 100%;
+    z-index: 2;
+    border-radius: 10px;
+  }
+  .white-input {
+    background-color: white;
+    color: black;
+  }
 }

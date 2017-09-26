@@ -17,8 +17,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class TripPage {
 
   trip: Trip;
+  canRate: Boolean = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.trip = this.navParams.get('trip');
+    if (this.trip.taskTripId && this.trip.taskTripId != null) {
+      this.canRate = true;
+    }
     // console.log(this.trip);
   }
 
