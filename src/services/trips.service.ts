@@ -19,7 +19,7 @@ export class TripsService {
   // ];
   constructor(private http: Http, private userSrvc: UserService ) {}
   loadTrips(){
-    const query: string ='/sysserve/mobile/GetTrips.do?user.token=' + this.userSrvc.getUserToken();
+    const query: string ='http://test.fleet.sysservesolutions.com/mobile/GetTrips.do?user.token=' + this.userSrvc.getUserToken();
     console.log(query);
     return this.http.get(query)
       .map(
