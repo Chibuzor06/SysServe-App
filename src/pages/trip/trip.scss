@@ -1,20 +1,26 @@
 page-trip {
   .button {
-    background-color: #4CAF50; /* Green */
+    // background-color: #4CAF50; /* Green */
+    background-color: map-get($colors, light);
     border: none;
     border-radius: 6px;
-    color: white;
+    color: #1B1B1B;
     // padding: 10px 16px;
     padding: 10px 6px 10px 16px;
     text-align: center;
     text-decoration: none;
     display: block;
+    z-index: 5;
     font-size: 16px;
     margin: 4px 2px;
-    cursor: pointer;
+    box-shadow: 1px 1px 3px #030303;
+    // cursor: pointer;
   }
   .button:active {
-    background-color: #184119;
+    // background-color: #184119;
+    background-color: black;
+    color: white;
+    box-shadow: 1px 1px 3px white;
   }
   ion-row {
     background-color: #252525;

@@ -15,16 +15,9 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-// .menu-inner {
-//   ion-toolbar.toolbar {
-//     min-height: 50px;
-//     background-color: blue !important;
-//     background: blue;
-//   }
-//   .space {
-//     height: 50px;
-//   }
-// }
+@import "../theme/icons";
+@import "../theme/circle.scss";
+
 .space {
       height: 50px;
 }
@@ -44,15 +37,10 @@
 .toolbar-md{
   padding: 10px;
   border: none;
-  color: green;
-  background-color: map-get($colors, primary);
-  background: map-get($colors, primary);
+  // background-color: map-get($colors, primary);
+  // background: map-get($colors, primary);
 }
-// ion-menu{
-//   ion-content{
-//    background-color:red !important;
-//   }
-//  }
-// @import "../theme/dark.scss";
-
+ion-icon.color {
+  color: map-get($colors, primary )
+}
 

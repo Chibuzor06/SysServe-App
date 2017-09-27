@@ -1,7 +1,7 @@
 import { DataAcessService } from './../../services/data-access.service';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { googlemaps } from 'googlemaps'
@@ -38,7 +38,7 @@ export class NewReservationPage implements OnInit{
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private dataAccessSrvc: DataAcessService, private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController, private domSanitizer: DomSanitizer
+    private alertCtrl: AlertController, private domSanitizer: DomSanitizer, private events: Events
   ) {
 
   }
@@ -72,11 +72,11 @@ export class NewReservationPage implements OnInit{
     // apparently doesn't work on ios
 
     this.input1 = <HTMLInputElement>(document.getElementsByClassName('text-input')[0]);
-    console.log(this.input1);
+    // console.log(this.input1);
     const autocomplete1 = new google.maps.places.Autocomplete(this.input1, this.predictOptions);
 
     this.input2 = <HTMLInputElement>(document.getElementsByClassName('text-input')[1]);
-    console.log(this.input2);
+    // console.log(this.input2);
     const autocomplete2 = new google.maps.places.Autocomplete(this.input2, this.predictOptions);
 
     //fix for ios
@@ -167,6 +167,7 @@ export class NewReservationPage implements OnInit{
               alert.present();
             }
           );
+          this.events.publish('reservation-created');
           this.clearForm();
           this.navCtrl.pop();
         }

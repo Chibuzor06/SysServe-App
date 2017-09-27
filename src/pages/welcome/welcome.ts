@@ -3,8 +3,8 @@ import { UserService } from './../../services/user.service';
 import { SegmentService } from './../../services/segment.service';
 import { Trip } from './../../models/trip.model';
 import { TripsService } from './../../services/trips.service';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Component, OnDestroy } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController, Events } from 'ionic-angular';
 
 /**
  * Generated class for the WelcomePage page.
@@ -18,7 +18,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
   selector: 'page-welcome',
   templateUrl: 'welcome.html',
 })
-export class WelcomePage {
+export class WelcomePage implements OnDestroy{
 
   segment: string;
   trips: Trip[]; // trips from trips service
@@ -26,22 +26,22 @@ export class WelcomePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private tripService: TripsService, private segmentSrvc: SegmentService,
-    private userSrvc: UserService, private toastCtrl: ToastController
-  ) {}
+    private userSrvc: UserService, private toastCtrl: ToastController, private events: Events
+  ) {
+    //if new reservation created, then reload trips
+    events.subscribe('reservation-created',
+      () => {
+        this.loadTrips();
+      }
+    );
+
+  }
 
   ionViewWillEnter() {
-    console.log('Will Enter', this.tripService.getTrips());
+    // console.log('Will Enter', this.tripService.getTrips());
     if (!this.tripService.getTrips()) {
       console.log('HEre');
-      this.tripService.loadTrips().subscribe(
-        trips => {
-          if (trips.response == 'fail') {
-            this.actionMessage = trips.actionMessages[0];
-          }else {
-            this.trips = trips;
-          }
-        }
-      );
+        this.loadTrips();
     } else {
       this.trips = this.tripService.getTrips();
     }
@@ -110,5 +110,17 @@ export class WelcomePage {
       return;
     }
     // console.log(event);
+  }
+
+  private loadTrips() {
+  this.tripService.loadTrips().subscribe(trips => {
+    if(trips.response == 'fail') {
+    }
+    else {
+          this.trips = trips;
+    }});
+  }
+  ngOnDestroy() {
+    this.events.unsubscribe('reservation-created');
   }
 }

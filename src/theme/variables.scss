@@ -22,7 +22,7 @@ $app-direction: ltr;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
-// $toolbar-background: blue;
+// $toolbar-background: map-get($colors, primary);
 // $list-background-color: #2A2A83;
 // $menu-md-background: red;
 
@@ -43,6 +43,7 @@ $colors: (
   dark:       #191919
 );
 
+$toolbar-background: map-get($colors, primary);
 
 // App iOS Variables
 // --------------------------------------------------
@@ -82,7 +83,8 @@ $colors: (
 // The premium icon font for Ionic. For more info, please see:
 // http://ionicframework.com/docs/ionicons/
 
-@import "ionic.ionicons";
+// @import "ionic.ionicons";
+@import "ionicons";
 
 
 // Fonts

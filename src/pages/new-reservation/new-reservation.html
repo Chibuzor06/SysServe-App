@@ -34,12 +34,12 @@
           </ion-item>
           <div *ngIf="type == 'Pick Up/Drop Off'">
             <ion-item>
-              <ion-icon name="ios-jet-outline" item-left></ion-icon>
+              <ion-icon name="icon-marker-circle" item-left></ion-icon>
               <ion-input required name="departure" type="text" id="departure" [(ngModel)]="departure"
                 placeholder="Departure" ></ion-input>
             </ion-item>
             <ion-item>
-              <ion-icon name="ios-globe-outline" item-left></ion-icon>
+              <ion-icon name="icon-marker" item-left></ion-icon>
               <ion-input required name="destination" type="text" placeholder="Destination" [(ngModel)]="destination"></ion-input>
             </ion-item>
             <ion-item>
@@ -56,7 +56,7 @@
             <!-- <div *ngIf="returnTrip"> -->
             <ion-item *ngIf="returnTrip">
               <!-- <ion-label floating>Return trip Date/Time</ion-label> -->
-              <ion-icon name="ios-calendar" item-left></ion-icon>
+              <ion-icon name="ios-calendar-outline" item-left></ion-icon>
               <ion-datetime required name="returnDateTime" no-padding placeholder="Return Date/Time"
                 displayFormat="MMM/DD/YYYY, HH:mm" pickerFormat="MM/DD/YYYY, HH:mm"
                 [(ngModel)]="returnDateTime" text-center></ion-datetime>
@@ -72,11 +72,11 @@
           </div>
           <div *ngIf="type == 'Daily Rental'">
             <ion-item>
-              <ion-icon name="ios-jet-outline" item-left></ion-icon>
+              <ion-icon name="icon-marker-circle" item-left></ion-icon>
               <ion-input required name="departure" type="text" placeholder="Departure" [(ngModel)]="departure"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-icon name="ios-globe-outline" item-left></ion-icon>
+              <ion-icon name="icon-marker-outline" item-left></ion-icon>
               <ion-input required name="destination" type="text" placeholder="Destination" [(ngModel)]="destination"></ion-input>
             </ion-item>
             <ion-item text-center>

@@ -48,7 +48,6 @@ export class MyApp{
   // }
 
   onLoadPage(page: any) {
-
     this.nav.push(page);
     this.menuCtrl.close();
   }
