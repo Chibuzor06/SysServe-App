@@ -26,7 +26,7 @@ export class RateTripPage {
 
 
   onStarClick(index: number) {
-    console.log('Star clicked');
+    // console.log('Star clicked');
     if (!this.rated) {
       this.rated = true;
     }

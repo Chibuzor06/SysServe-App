@@ -82,12 +82,12 @@ export class NewReservationPage implements OnInit{
     //fix for ios
     autocomplete2.addListener("place_changed", () => {
       let place1: google.maps.places.PlaceResult = autocomplete1.getPlace();
-      this.departure = place1.formatted_address;
+      if (place1) this.departure = place1.formatted_address;
       // console.log(this.departure);
     });
     autocomplete2.addListener("place_changed", () => {
       let place2: google.maps.places.PlaceResult = autocomplete2.getPlace();
-      this.destination = place2.formatted_address;
+      if (place2) this.destination = place2.formatted_address;
       // console.log(this.destination);
     });
 
