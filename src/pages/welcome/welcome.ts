@@ -37,7 +37,7 @@ export class WelcomePage implements OnDestroy{
 
   }
 
-  ionViewWillEnter() {
+  ionViewWillLoad() {
     // console.log('Will Enter', this.tripService.getTrips());
     if (!this.tripService.getTrips()) {
       console.log('HEre');
@@ -46,8 +46,6 @@ export class WelcomePage implements OnDestroy{
       this.trips = this.tripService.getTrips();
     }
     this.segment = this.segmentSrvc.getCurrentSegment();
-
-
   }
 
   ionViewDidEnter() {
