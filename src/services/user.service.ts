@@ -17,18 +17,18 @@ export class UserService{
       firstName: firstName, lastName: lastName, email: email, clientCode: clientCode, token: token
     };
     this.storage.set('user', this.user);
-    console.log(this.user);
+    // console.log(this.user);
   }
   setUserWithResponseData(user: User) {
     this.user = user;
     this.storage.set('user', this.user).then(
       data => {
-        console.log('User Stored', data);
+        // console.log('User Stored', data);
       }
     )
     .catch(
       data => {
-        console.log('Error storing user',data);
+        // console.log('Error storing user',data);
       }
     );
     console.log('userSet', this.user, );
@@ -50,7 +50,7 @@ export class UserService{
       })
       .catch(
         err => {
-          console.log('Storage error',err);
+          // console.log('Storage error',err);
           return false;
         }
       );
@@ -62,7 +62,7 @@ export class UserService{
       .then( (user: User) => {
         if (user) {
           this.user = user;
-          console.log(this.user, 'Log in function');
+          // console.log(this.user, 'Log in function');
           return { user: true, accessedStorage : true};
         }
         else {
@@ -71,7 +71,7 @@ export class UserService{
 
       })
       .catch( err => {
-        console.log('Error accessing storage');
+        // console.log('Error accessing storage');
         return { user: false, accessedStorage: false};
       });
       // return { user: true, accessedStorage : true};

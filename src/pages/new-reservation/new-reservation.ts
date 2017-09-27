@@ -50,7 +50,7 @@ export class NewReservationPage implements OnInit{
   }
 
   onSegmentChange(valid: boolean, event) {
-    console.log('Form Valid', valid, event);
+    // console.log('Form Valid', valid, event);
     if (event.value == 'vehicle') {
       this.tripFormValid = valid;
     }

@@ -7,15 +7,36 @@ page-login {
   .space {
     margin-top: 100px;
   }
-  .flex-container {
-    display: -webkit-flex;
-    display: flex;
-    // width: inherit;
-    -webkit-justify-content: center;
-    justify-content: center;
+  // .flex-container {
+  //   display: -webkit-flex;
+  //   display: flex;
+  //   // width: inherit;
+  //   -webkit-justify-content: center;
+  //   justify-content: center;
+  // }
+  // .flex-item {
+  //   max-width: 300px;
+  //   margin:auto;
+  // }
+  .background {
+    // background-color: white;
+    position: relative;
+    background: url('../assets/images/welcome.jpg') no-repeat transparent;
+    z-index: 1;
+    // height: 45%;
+    background-size: cover;
   }
-  .flex-item {
-    max-width: 300px;
-    margin:auto;
+
+  .form {
+    top: 64%;
+    z-index: 2;
+    position: relative;
+    border-radius: 10px;
+  }
+  .white-input {
+    background-color: white;
+    color: #524E4E;
+    margin-top: 3px;
+    border-radius: 18px;
   }
 }

@@ -32,15 +32,25 @@ export class SignupPage {
           const data1 = data.json();
           if(data1.response == 'fail') {
             const alert = this.alertCtrl.create({
-              title: 'Sigup Failed',
+              title: 'Signup Failed',
               message: data1.actionMessages[0],
               buttons: ['Ok']
             });
             alert.present();
           } else {
+            const alert = this.alertCtrl.create({
+              title: 'Signup Successful',
+              message: 'An email has been sent to the indicated email address to set up your password.',
+              buttons: ['Ok']
+            });
+            alert.present();
+            alert.onDidDismiss(
+              () => {
+                this.onClose();
+              }
+            );
+            this.onClose();
             console.log('data here', data1);
-            // this.userService.setUserWithResponseData(data);
-            // this.navCtrl.setRoot('WelcomePage');
           }
           console.log(data.json());
         },
