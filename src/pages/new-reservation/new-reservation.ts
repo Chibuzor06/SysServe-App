@@ -4,6 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
+import { googlemaps } from 'googlemaps'
+// declare var google: any;
+
 @IonicPage()
 @Component({
   selector: 'page-new-reservation',
@@ -27,12 +30,20 @@ export class NewReservationPage implements OnInit{
   tripFormValid: boolean = false;
   imageData: string = '';
   safeImageUrl: SafeUrl = '';
+
+  // @ViewChild('departure', {read: ElementRef}) departurePredict: ElementRef;
+
+  input1: HTMLInputElement; //departure input
+  input2: HTMLInputElement; //destination input
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private dataAccessSrvc: DataAcessService, private loadingCtrl: LoadingController,
     private alertCtrl: AlertController, private domSanitizer: DomSanitizer
   ) {
+
   }
   ngOnInit() {
+    //Getting vehicle categories from server on page init.
     if (this.dataAccessSrvc.getVehicleCategories()) {
       this.vehicleCategories = this.dataAccessSrvc.getVehicleCategories();
     } else {
@@ -49,11 +60,51 @@ export class NewReservationPage implements OnInit{
     }
   }
 
+
+  predictOptions = {
+    // types: ['(cities)'],
+    componentRestrictions: {country: 'ng'}
+  };
+
+
+  ionViewDidLoad() {
+    // initializing auto-complete
+    // apparently doesn't work on ios
+
+    this.input1 = <HTMLInputElement>(document.getElementsByClassName('text-input')[0]);
+    console.log(this.input1);
+    const autocomplete1 = new google.maps.places.Autocomplete(this.input1, this.predictOptions);
+
+    this.input2 = <HTMLInputElement>(document.getElementsByClassName('text-input')[1]);
+    console.log(this.input2);
+    const autocomplete2 = new google.maps.places.Autocomplete(this.input2, this.predictOptions);
+
+    //fix for ios
+    autocomplete2.addListener("place_changed", () => {
+      let place1: google.maps.places.PlaceResult = autocomplete1.getPlace();
+      this.departure = place1.formatted_address;
+      // console.log(this.departure);
+    });
+    autocomplete2.addListener("place_changed", () => {
+      let place2: google.maps.places.PlaceResult = autocomplete2.getPlace();
+      this.destination = place2.formatted_address;
+      // console.log(this.destination);
+    });
+
+    //alternative approach, but cannot use two-way binding with this approach
+    // const input1 = this.departurePredict.nativeElement.querySelector('.text-input');
+    // console.log(input1);
+    // const autocomplete1 = new google.maps.places.Autocomplete(input1, this.predictOptions);
+  }
+
   onSegmentChange(valid: boolean, event) {
     // console.log('Form Valid', valid, event);
     if (event.value == 'vehicle') {
       this.tripFormValid = valid;
+      this.destination = this.input2.value;
+      this.departure = this.input1.value;
     }
+
   }
 
   onNewReservation(form: NgForm) {
@@ -79,6 +130,7 @@ export class NewReservationPage implements OnInit{
     loader.present();
 
     // console.log('Previous ', this.dateTime);
+    // formatting time to a format the server can understand (remove the 'Z' at the end).
     this.dateTime = this.dateTime.slice(0, 19);
     // console.log('New ', this.dateTime);
     this.returnDateTime = this.returnDateTime.slice(0, 19);
@@ -90,7 +142,6 @@ export class NewReservationPage implements OnInit{
 
     reservation.subscribe(
       data => {
-
         const obj = data.json();
         let alertMessage: string;
         console.log(obj);
@@ -124,6 +175,12 @@ export class NewReservationPage implements OnInit{
       err => {
         loader.dismiss();
         console.log('Error, ', err);
+        const alert = this.alertCtrl.create({
+          title: 'Can\'t connect to the internet',
+          message: 'There might be a problem with your network connection. Please check and try again',
+          buttons: ['Ok']
+        });
+        alert.present();
       }
     );
   }

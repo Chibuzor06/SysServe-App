@@ -86,10 +86,29 @@ export class WelcomePage {
   }
 
   onTripSelected(index: number) {
-    console.log(index);
+    // console.log(index);
     this.navCtrl.push('TripPage', {
       trip: this.tripService.getTrips()[index]
     });
   }
 
+  setSegment(event) {
+    // this.segmentSrvc.setCurrentSegment(segment);
+    // this.segment = segment;
+    if (event.deltaX > 0) {
+      if (this.segment != 'trips') {
+        this.segmentSrvc.setCurrentSegment('trips');
+        this.segment = 'trips';
+      }
+      return;
+    }
+    if (event.deltaX < 0) {
+      if (this.segment != 'messages') {
+        this.segmentSrvc.setCurrentSegment('messages');
+        this.segment = 'messages';
+      }
+      return;
+    }
+    // console.log(event);
+  }
 }

@@ -35,7 +35,8 @@
           <div *ngIf="type == 'Pick Up/Drop Off'">
             <ion-item>
               <ion-icon name="ios-jet-outline" item-left></ion-icon>
-              <ion-input required name="departure" type="text" placeholder="Departure" [(ngModel)]="departure"></ion-input>
+              <ion-input required name="departure" type="text" id="departure" [(ngModel)]="departure"
+                placeholder="Departure" ></ion-input>
             </ion-item>
             <ion-item>
               <ion-icon name="ios-globe-outline" item-left></ion-icon>

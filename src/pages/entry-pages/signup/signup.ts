@@ -57,6 +57,12 @@ export class SignupPage {
         err => {
           loader.dismiss();
           console.log('This is an error', err);
+          const alert = this.alertCtrl.create({
+            title: 'Can\'t connect to the internet',
+            message: 'There might be a problem with your network connection. Please check and try again',
+            buttons: ['Ok']
+          });
+          alert.present();
         }
       );
   }
