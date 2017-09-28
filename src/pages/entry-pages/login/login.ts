@@ -36,7 +36,7 @@ export class LoginPage {
 
   onLogin(form: NgForm) {
     // this.navCtrl.setRoot('WelcomePage');
-    console.log(form.value);
+    // console.log(form.value);
     const loader = this.loadingCtrl.create({
       content: 'Logging you in...'
     });
@@ -53,14 +53,14 @@ export class LoginPage {
             });
             alert.present();
           } else {
-            console.log('data here', data);
+            // console.log('data here', data);
             this.userService.setUserWithResponseData(data);
             this.navCtrl.setRoot('WelcomePage');
           }
         },
         err => {
           loader.dismiss();
-          console.log('This is an error', err);
+          // console.log('This is an error', err);
           const alert = this.alertCtrl.create({
             title: 'Can\'t connect to the internet',
             message: 'There might be a problem with your network connection. Please check and try again',

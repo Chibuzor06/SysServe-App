@@ -26,7 +26,7 @@ export class RateTripPage {
 
 
   onStarClick(index: number) {
-    // console.log('Star clicked');
+    // // console.log('Star clicked');
     if (!this.rated) {
       this.rated = true;
     }
@@ -46,7 +46,7 @@ export class RateTripPage {
     }
   }
   onRateTrip(form: NgForm) {
-    console.log(form.value);
+    // console.log(form.value);
     if ( this.rating < 3 && (form.value.comments == '' || !form.value.comments)) {
       const alert = this.alertCtrl.create({
         message: 'Your rating is less than 3. Please tell us why...',
@@ -55,7 +55,7 @@ export class RateTripPage {
       alert.present();
       return;
     }
-    console.log('Star: ', this.rating, ' comments: ', form.value.comments, ' Trip id: ', this.trip.taskTripId);
+    // console.log('Star: ', this.rating, ' comments: ', form.value.comments, ' Trip id: ', this.trip.taskTripId);
     this.dataSrvc.rateTrip(this.trip.taskTripId, this.rating, form.value.comments).subscribe(
       data => {
         const response = data.json();
@@ -81,7 +81,7 @@ export class RateTripPage {
         }
       },
       err => {
-        console.log(err);
+        // console.log(err);
         const alert = this.alertCtrl.create({
           title: 'Can\'t connect to the internet',
           message: 'There might be a problem with your network connection. Please check and try again',

@@ -19,7 +19,7 @@ export class TripsService {
   // ];
   constructor(private http: Http, private userSrvc: UserService ) {}
   loadTrips(){
-    const query: string ='http://test.fleet.sysservesolutions.com/mobile/GetTrips.do?user.token=' + this.userSrvc.getUserToken();
+    const query: string ='http://fleetmanager.sixtnigeria.com/mobile/GetTrips.do?user.token=' + this.userSrvc.getUserToken();
     console.log(query);
     return this.http.get(query)
       .map(
@@ -33,7 +33,7 @@ export class TripsService {
           const formattedTrips = trips.map(
             trip => {
               return new Trip(trip.departure, trip.destination, (<string>trip.pickUpDate).slice(0, 10),
-              NaN, trip.noOfPassenger, trip.status,
+              (trip.noOfDays? trip.noOfDays : 1), trip.noOfPassenger, trip.status,
               (trip.personnel ? new Driver(trip.personnel.fullName, trip.personnel.phone) : null),
               (trip.vehicle ? new Vehicle(trip.vehicle.plateNumber, trip.vehicle.make + ' ' + trip.vehicle.model, trip.vehicle.color) : null),
               trip.id, new Date(trip.expectedEndDate + 'Z').toDateString(), (trip.taskTripId ? trip.taskTripId : null));

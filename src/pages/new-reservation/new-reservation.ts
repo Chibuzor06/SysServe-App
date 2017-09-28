@@ -49,11 +49,11 @@ export class NewReservationPage implements OnInit{
     } else {
       this.dataAccessSrvc.loadVehicleCategories().subscribe(
         response => {
-          console.log(response.json(), 'Response here');
+          // // console.log(response.json(), 'Response here');
           this.vehicleCategories = response.json().vehicleCategoryList;
         },
         err => {
-          console.log('Error here', err);
+          // // console.log('Error here', err);
           this.vehicleCategories = [''];
         }
       );
@@ -72,33 +72,33 @@ export class NewReservationPage implements OnInit{
     // apparently doesn't work on ios
 
     this.input1 = <HTMLInputElement>(document.getElementsByClassName('text-input')[0]);
-    // console.log(this.input1);
+    // // // console.log(this.input1);
     const autocomplete1 = new google.maps.places.Autocomplete(this.input1, this.predictOptions);
 
     this.input2 = <HTMLInputElement>(document.getElementsByClassName('text-input')[1]);
-    // console.log(this.input2);
+    // // // console.log(this.input2);
     const autocomplete2 = new google.maps.places.Autocomplete(this.input2, this.predictOptions);
 
     //fix for ios
     autocomplete2.addListener("place_changed", () => {
       let place1: google.maps.places.PlaceResult = autocomplete1.getPlace();
       if (place1) this.departure = place1.formatted_address;
-      // console.log(this.departure);
+      // // // console.log(this.departure);
     });
     autocomplete2.addListener("place_changed", () => {
       let place2: google.maps.places.PlaceResult = autocomplete2.getPlace();
       if (place2) this.destination = place2.formatted_address;
-      // console.log(this.destination);
+      // // // console.log(this.destination);
     });
 
     //alternative approach, but cannot use two-way binding with this approach
     // const input1 = this.departurePredict.nativeElement.querySelector('.text-input');
-    // console.log(input1);
+    // // // console.log(input1);
     // const autocomplete1 = new google.maps.places.Autocomplete(input1, this.predictOptions);
   }
 
   onSegmentChange(valid: boolean, event) {
-    // console.log('Form Valid', valid, event);
+    // // // console.log('Form Valid', valid, event);
     if (event.value == 'vehicle') {
       this.tripFormValid = valid;
       this.destination = this.input2.value;
@@ -129,10 +129,10 @@ export class NewReservationPage implements OnInit{
     });
     loader.present();
 
-    // console.log('Previous ', this.dateTime);
+    // // // console.log('Previous ', this.dateTime);
     // formatting time to a format the server can understand (remove the 'Z' at the end).
     this.dateTime = this.dateTime.slice(0, 19);
-    // console.log('New ', this.dateTime);
+    // // // console.log('New ', this.dateTime);
     this.returnDateTime = this.returnDateTime.slice(0, 19);
 
     const reservation = this.dataAccessSrvc.createNewReservation(this.type, this.departure, this.destination, this.dateTime, this.passengerName,
@@ -144,7 +144,7 @@ export class NewReservationPage implements OnInit{
       data => {
         const obj = data.json();
         let alertMessage: string;
-        console.log(obj);
+        // // console.log(obj);
         if (obj.response == 'fail') {
           alertMessage = obj.actionMessages[0];
           const alert = this.alertCtrl.create({
@@ -175,7 +175,7 @@ export class NewReservationPage implements OnInit{
       },
       err => {
         loader.dismiss();
-        console.log('Error, ', err);
+        // // console.log('Error, ', err);
         const alert = this.alertCtrl.create({
           title: 'Can\'t connect to the internet',
           message: 'There might be a problem with your network connection. Please check and try again',
@@ -195,11 +195,11 @@ export class NewReservationPage implements OnInit{
   //   if ((this.type == 'Pick Up/Drop Off') && (this.passengers == NaN || !this.passengers ||
   //       (this.returnTrip && (this.returnDateTime == '' || !this.returnDateTime) ))) {
   //       invalid = true;
-  //       console.log('Inside pickup');
+  //       // // console.log('Inside pickup');
   //     }
   //   if ((this.type == 'Daily Rental') && (this.noOfDays == NaN || !this.noOfDays)) {
   //     invalid = true;
-  //     console.log('Inside rental');
+  //     // // console.log('Inside rental');
   //   }
   //   return invalid;
   // }
@@ -232,13 +232,13 @@ export class NewReservationPage implements OnInit{
       data => {
         this.vehicles = data.json();
         this.vehicleGroupID = 0;
-        console.log(this.vehicles);
+        // // console.log(this.vehicles);
         loader.dismiss();
 
       },
       err => {
         loader.dismiss();
-        console.log(err);
+        // // console.log(err);
       }
     );
   }
@@ -251,7 +251,7 @@ export class NewReservationPage implements OnInit{
     });
     loader.present();
     this.imageData = 'data:image/png;base64, ';
-    // console.log(id);
+    // // // console.log(id);
     this.dataAccessSrvc.loadVehicleImage(id).subscribe(
       data => {
         if( data.json() == {} || !data.json()) {
@@ -260,13 +260,13 @@ export class NewReservationPage implements OnInit{
         } else {
           loader.dismiss();
           this.imageData += data.json().encodedContent;
-          // console.log(this.imageData);
+          // // // console.log(this.imageData);
           this.safeImageUrl = this.domSanitizer.bypassSecurityTrustUrl(this.imageData);
         }
       },
       err => {
         loader.dismiss();
-        console.log('Image Error', err);
+        // // console.log('Image Error', err);
       }
 
     );

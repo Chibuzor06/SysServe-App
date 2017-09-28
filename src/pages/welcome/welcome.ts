@@ -38,9 +38,9 @@ export class WelcomePage implements OnDestroy{
   }
 
   ionViewWillLoad() {
-    // console.log('Will Enter', this.tripService.getTrips());
+    // // console.log('Will Enter', this.tripService.getTrips());
     if (!this.tripService.getTrips()) {
-      console.log('HEre');
+      // console.log('HEre');
         this.loadTrips();
     } else {
       this.trips = this.tripService.getTrips();
@@ -52,7 +52,7 @@ export class WelcomePage implements OnDestroy{
     if (!this.userSrvc.toastShown){
       if(this.userSrvc.getUser()) {
         const user: User = this.userSrvc.getUser();
-        // console.log(user, 'This is the user');
+        // // console.log(user, 'This is the user');
         const toast = this.toastCtrl.create({
           message: 'Welcome, ' + user.firstName,
           duration: 2000,
@@ -68,23 +68,23 @@ export class WelcomePage implements OnDestroy{
     }
   }
   onSegmentChange(event: any) {
-    // console.log(this.segment, event);
+    // // console.log(this.segment, event);
     this.segmentSrvc.setCurrentSegment(this.segment);
   }
 
   onLoadTrips() {
     this.tripService.loadTrips().subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
       },
       err => {
-        console.log('This is an error', err.json());
+        // console.log('This is an error', err.json());
       }
     );
   }
 
   onTripSelected(index: number) {
-    // console.log(index);
+    // // console.log(index);
     this.navCtrl.push('TripPage', {
       trip: this.tripService.getTrips()[index]
     });
@@ -107,7 +107,7 @@ export class WelcomePage implements OnDestroy{
       }
       return;
     }
-    // console.log(event);
+    // // console.log(event);
   }
 
   private loadTrips() {

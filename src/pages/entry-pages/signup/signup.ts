@@ -19,7 +19,7 @@ export class SignupPage {
   }
 
   onSignUp(form: NgForm) {
-    console.log(form);
+    // console.log(form);
     const loader = this.loadingCtrl.create({
       content: 'Creating new user...'
     });
@@ -50,13 +50,13 @@ export class SignupPage {
               }
             );
             this.onClose();
-            console.log('data here', data1);
+            // console.log('data here', data1);
           }
-          console.log(data.json());
+          // console.log(data.json());
         },
         err => {
           loader.dismiss();
-          console.log('This is an error', err);
+          // console.log('This is an error', err);
           const alert = this.alertCtrl.create({
             title: 'Can\'t connect to the internet',
             message: 'There might be a problem with your network connection. Please check and try again',

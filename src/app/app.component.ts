@@ -24,16 +24,16 @@ export class MyApp{
       } else if (data.accessedStorage && !data.user) {
         this.rootPage = 'LoginPage';
       } else {
-        console.log('Error in accessing storage');
+        // console.log('Error in accessing storage');
       }
     })
     .catch(
       err => {
-        console.log(err);
+        // console.log(err);
       }
     );
-    console.log(this.rootPage);
-    console.log('Constructor');
+    // console.log(this.rootPage);
+    // console.log('Constructor');
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -43,7 +43,7 @@ export class MyApp{
   }
 
   // ngOnInit() {
-  //   console.log('OnInit');
+  //   // console.log('OnInit');
 
   // }
 
@@ -91,7 +91,7 @@ export class MyApp{
       )
       .catch(
         err => {
-          console.log('Logout error', err);
+          // console.log('Logout error', err);
           loader.dismiss();
         }
       );

@@ -20,7 +20,7 @@ export class ForgotPasswordPage {
     this.viewCtrl.dismiss();
   }
   onForgotPassword(form: NgForm) {
-    console.log(form.value);
+    // console.log(form.value);
     const loader = this.loadingCtrl.create({
       content: 'Please wait...',
       dismissOnPageChange: true
@@ -30,7 +30,7 @@ export class ForgotPasswordPage {
     .subscribe(
       data => {
         loader.dismiss();
-        console.log(data.json());
+        // console.log(data.json());
         if (data.json().response == 'fail') {
           this.alert(data.json().actionMessages[0]).present();
         }else{
@@ -39,7 +39,7 @@ export class ForgotPasswordPage {
       },
       err => {
         loader.dismiss();
-        console.log(err);
+        // console.log(err);
         const alert = this.alertCtrl.create({
           title: 'Can\'t connect to the internet',
           message: 'There might be a problem with your network connection. Please check and try again',
