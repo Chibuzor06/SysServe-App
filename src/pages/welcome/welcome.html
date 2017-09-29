@@ -29,22 +29,6 @@
   </ion-segment>
   <div [ngSwitch]="segment" (swipe)="setSegment($event)">
     <ion-grid >
-      <!-- <ion-list *ngSwitchCase="'trips'">
-        <ion-item>
-          <h3>
-          <ion-row>
-            <ion-col col-4>Pick-Up Date</ion-col>
-            <ion-col col-4>Departure</ion-col>
-            <ion-col col-4>Destination</ion-col>
-          </ion-row>
-          </h3>
-        </ion-item>
-        <a ion-item *ngFor="let trip of trips; let i = index" mode="ios"  (click)="onTripSelected(i)"><h3>
-          <ion-col col-4>{{ trip.pickupDate }}</ion-col>
-          <ion-col col-4>{{ trip.departure }}</ion-col>
-          <ion-col col-4>{{ trip.destination }}</ion-col>
-        </h3></a>
-      </ion-list> -->
       <div *ngSwitchCase="'trips'">
         <ion-grid>
           <ion-row>
@@ -55,12 +39,12 @@
           <ion-row>
             <ion-col>
               <p *ngIf="actionMessage"> {{ actionMessage }}</p>
-              <p *ngIf="!trips && !actionMessage">Loading Trips...</p>
+              <p *ngIf="!trips && !actionMessage">Loading Trips... <!--span><img height="" src="assets/images/loading2.gif"></span--></p>
             </ion-col>
           </ion-row>
           <div class="row-item" *ngFor="let trip of trips; let i = index" [ngClass]="{'border' : i % 2 == 0}"
-            (click)="onTripSelected(i)">
-          <ion-row >
+          (click)="onTripSelected(i)">
+          <ion-row>
             <ion-col col-4>{{ trip.pickupDate }}</ion-col>
             <ion-col col-4>- {{ trip.departure }}</ion-col>
             <ion-col col-4>- {{ trip.destination }}</ion-col>

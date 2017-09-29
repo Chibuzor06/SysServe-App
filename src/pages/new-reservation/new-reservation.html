@@ -8,134 +8,15 @@
 
 
 <ion-content padding>
+  <ion-card>
+    <button ion-item (click)="loadPage('PickDropPage')">
+      Pick up/Drop Off
+    </button>
+  </ion-card>
+  <ion-card>
+    <button ion-item (click)="loadPage('DailyRentalPage')">
+      Daily Rental
+    </button>
+  </ion-card>
 
-  <ion-segment [(ngModel)]="segment" (ionChange)="onSegmentChange(f.valid, $event)">
-    <ion-segment-button value="trip" large>
-      <!-- <ion-icon name="trending-up" small></ion-icon> -->
-      Trip
-    </ion-segment-button>
-    <ion-segment-button value="vehicle" large>
-      <!-- <ion-icon name="car"></ion-icon> -->
-      Vehicle
-    </ion-segment-button>
-  </ion-segment>
-  <form #f="ngForm" (ngSubmit)="onNewReservation(f)" >
-    <div [ngSwitch]="segment">
-      <div *ngSwitchCase="'trip'">
-        <ion-list style="margin-top:20px;">
-          <ion-item>
-            <ion-label>
-              Trip Type
-            </ion-label>
-            <ion-select name="type" [(ngModel)]="type" >
-              <ion-option value="Pick Up/Drop Off">Pick up/Drop off</ion-option>
-              <ion-option value="Daily Rental">Daily Rental</ion-option>
-            </ion-select>
-          </ion-item>
-          <div *ngIf="type == 'Pick Up/Drop Off'">
-            <ion-item>
-              <ion-icon name="icon-marker-circle" item-left></ion-icon>
-              <ion-input required name="departure" type="text" id="departure" [(ngModel)]="departure"
-                placeholder="Departure" ></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-icon name="icon-marker" item-left></ion-icon>
-              <ion-input required name="destination" type="text" placeholder="Destination" [(ngModel)]="destination"></ion-input>
-            </ion-item>
-            <ion-item>
-              <!-- <ion-label floating>Pick up Date/Time</ion-label> -->
-              <ion-icon name="ios-calendar-outline" item-left></ion-icon>
-              <ion-datetime required name="dateTime" no-padding placeholder="Pickup Date/Time"
-                displayFormat="MMM/DD/YYYY, HH:mm"  pickerFormat="MM/DD/YYYY, HH:mm"
-                [(ngModel)]="dateTime"></ion-datetime>
-            </ion-item>
-            <ion-item>
-              <ion-label>Return trip</ion-label>
-              <ion-checkbox name="returnTrip" [(ngModel)]="returnTrip"></ion-checkbox>
-            </ion-item>
-            <!-- <div *ngIf="returnTrip"> -->
-            <ion-item *ngIf="returnTrip">
-              <!-- <ion-label floating>Return trip Date/Time</ion-label> -->
-              <ion-icon name="ios-calendar-outline" item-left></ion-icon>
-              <ion-datetime required name="returnDateTime" no-padding placeholder="Return Date/Time"
-                displayFormat="MMM/DD/YYYY, HH:mm" pickerFormat="MM/DD/YYYY, HH:mm"
-                [(ngModel)]="returnDateTime" text-center></ion-datetime>
-            </ion-item>
-            <ion-item>
-              <ion-icon name="ios-people-outline" item-left></ion-icon>
-              <ion-input required type="number" name="passengers" placeholder="No. of passengers" [(ngModel)]="passengers"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-icon name="ios-person-add-outline" item-left></ion-icon>
-              <ion-input required type="text" name="passengerName" placeholder="Passenger Name" [(ngModel)]="passengerName"></ion-input>
-            </ion-item>
-          </div>
-          <div *ngIf="type == 'Daily Rental'">
-            <ion-item>
-              <ion-icon name="icon-marker-circle" item-left></ion-icon>
-              <ion-input required name="departure" type="text" placeholder="Departure" [(ngModel)]="departure"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-icon name="icon-marker" item-left></ion-icon>
-              <ion-input required name="destination" type="text" placeholder="Destination" [(ngModel)]="destination"></ion-input>
-            </ion-item>
-            <ion-item text-center>
-              <ion-icon name="ios-calendar-outline" item-left></ion-icon>
-              <ion-datetime required name="dateTime" no-padding placeholder="Return Date/Time"
-                displayFormat="MMM/DD/YYYY, HH:mm"  pickerFormat="MM/DD/YYYY, HH:mm"
-                [(ngModel)]="dateTime" placeholder="Pick up Date/Time" text-center></ion-datetime>
-            </ion-item>
-            <ion-item>
-              <ion-icon name="ios-partly-sunny-outline" item-left></ion-icon>
-              <ion-input required type="number" name="days" placeholder="No. of days" [(ngModel)]="noOfDays"></ion-input>
-            </ion-item>
-          </div>
-        </ion-list>
-      </div>
-      <div *ngSwitchCase="'vehicle'">
-        <ion-list style="margin-top:20px;">
-          <ion-item>
-            <ion-label>
-              Vehicle Class
-            </ion-label>
-            <ion-select name="vehicleClass" [(ngModel)]="vehicleClass" (ionChange)="onVehicleClassChosen($event)">
-              <ion-option *ngFor="let cat of vehicleCategories" [value]="cat">{{ cat }}</ion-option>
-              <!-- <ion-option value="saloon">Saloon</ion-option>
-              <ion-option value="bus">Bus</ion-option> -->
-            </ion-select>
-          </ion-item>
-          <ion-item *ngIf="vehicles">
-            <ion-label>
-              Make/Model
-            </ion-label>
-            <ion-select name="makeModel" [(ngModel)]="vehicleGroupID" (ionChange)="onVehicleChosen($event)"> <!--[(ngModel)]="makeModel"-->
-              <ion-option *ngFor="let car of vehicles" [value]="car.id">{{ car.make + ' '}} {{ car.model }}</ion-option>
-              <!-- <ion-option value="toyotaAvensis">Toyota Avensis</ion-option>
-              <ion-option value="hondaAccord">Honda Accord</ion-option> -->
-            </ion-select>
-          </ion-item>
-          <ion-row>
-          <ion-col col-12>
-            <img class="cover" [src]="this.safeImageUrl">
-          </ion-col>
-        </ion-row>
-        </ion-list>
-
-      </div>
-      <ion-row>
-        <ion-col col-6 offset-3>
-          <button ion-button
-            block type="submit"
-            [disabled]="!f.valid"
-          >Submit
-          </button>
-          <!-- <button ion-button *ngIf="segment == 'vehicle'"
-            block type="submit"
-            [disabled]="!vehicleButtonValid"
-          >Submit
-          </button> -->
-        </ion-col>
-      </ion-row>
-    </div >
-  </form>
 </ion-content>
