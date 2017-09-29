@@ -1,3 +1,4 @@
+import { GlobalConstants } from './../global.constants';
 import { Response } from '@angular/http';
 import { UserService } from './user.service';
 import { Vehicle } from './../models/vehicle.model';
@@ -19,7 +20,7 @@ export class TripsService {
   // ];
   constructor(private http: Http, private userSrvc: UserService ) {}
   loadTrips(){
-    const query: string ='/sysserve/mobile/GetTrips.do?user.token=' + this.userSrvc.getUserToken();
+    const query: string = GlobalConstants.url + '/mobile/GetTrips.do?user.token=' + this.userSrvc.getUserToken();
     console.log(query);
     return this.http.get(query)
       .map(
@@ -33,10 +34,10 @@ export class TripsService {
           const formattedTrips = trips.map(
             trip => {
               return new Trip(trip.departure, trip.destination, (<string>trip.pickUpDate),
-              NaN, trip.noOfPassenger, trip.status,
+              trip.noOfDays, trip.noOfPassenger, trip.status,
               (trip.personnel ? new Driver(trip.personnel.fullName, trip.personnel.phone) : null),
               (trip.vehicle ? new Vehicle(trip.vehicle.plateNumber, trip.vehicle.make + ' ' + trip.vehicle.model, trip.vehicle.color) : null),
-              trip.id, new Date(trip.expectedEndDate + 'Z').toDateString(), (trip.taskTripId ? trip.taskTripId : null));
+              trip.id, trip.expectedEndDate, (trip.taskTripId ? trip.taskTripId : null));
             }
           );
           // console.log(formattedTrips);
