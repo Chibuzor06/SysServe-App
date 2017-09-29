@@ -80,14 +80,18 @@ export class NewReservationPage implements OnInit{
     const autocomplete2 = new google.maps.places.Autocomplete(this.input2, this.predictOptions);
 
     //fix for ios
-    autocomplete2.addListener("place_changed", () => {
+    autocomplete1.addListener("place_changed", () => {
       let place1: google.maps.places.PlaceResult = autocomplete1.getPlace();
-      if (place1) this.departure = place1.formatted_address;
+      if (place1) {
+        // this.departure = place1.formatted_address;
+        this.input1.value = place1.formatted_address;
+       }
       // // // console.log(this.departure);
     });
     autocomplete2.addListener("place_changed", () => {
       let place2: google.maps.places.PlaceResult = autocomplete2.getPlace();
-      if (place2) this.destination = place2.formatted_address;
+      // if (place2) this.destination = place2.formatted_address;
+      this.input2.value = place2.formatted_address;
       // // // console.log(this.destination);
     });
 
@@ -136,7 +140,7 @@ export class NewReservationPage implements OnInit{
     this.returnDateTime = this.returnDateTime.slice(0, 19);
 
     const reservation = this.dataAccessSrvc.createNewReservation(this.type, this.departure, this.destination, this.dateTime, this.passengerName,
-      (this.type =='Pick Up/Drop Off' ? this.passengers : null),
+      this.passengers,
       (this.type == 'Daily Rental' ? this.noOfDays : null),
       (this.type == 'Pick Up/Drop Off' && this.returnTrip ? this.returnDateTime : ''), this.vehicleGroupID);
 

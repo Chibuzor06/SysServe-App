@@ -1,3 +1,4 @@
+import { GlobalConstants } from './../global.constants';
 import { Response } from '@angular/http';
 import { UserService } from './user.service';
 import { Vehicle } from './../models/vehicle.model';
@@ -19,7 +20,7 @@ export class TripsService {
   // ];
   constructor(private http: Http, private userSrvc: UserService ) {}
   loadTrips(){
-    const query: string ='http://fleetmanager.sixtnigeria.com/mobile/GetTrips.do?user.token=' + this.userSrvc.getUserToken();
+    const query: string = GlobalConstants.url + '/mobile/GetTrips.do?user.token=' + this.userSrvc.getUserToken();
     console.log(query);
     return this.http.get(query)
       .map(
