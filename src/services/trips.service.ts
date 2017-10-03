@@ -21,7 +21,7 @@ export class TripsService {
   constructor(private http: Http, private userSrvc: UserService ) {}
   loadTrips(){
     const query: string = GlobalConstants.url + '/mobile/GetTrips.do?user.token=' + this.userSrvc.getUserToken();
-    console.log(query);
+    // console.log(query);
     return this.http.get(query)
       .map(
         (response: Response) => {
@@ -33,11 +33,12 @@ export class TripsService {
           }
           const formattedTrips = trips.map(
             trip => {
-              return new Trip(trip.departure, trip.destination, (<string>trip.pickUpDate),
-              trip.noOfDays, trip.noOfPassenger, trip.status,
+              // console.log(trip);
+              return new Trip(trip.departure, trip.destination, <string>trip.pickUpDate,
+              (trip.noOfDays? trip.noOfDays : 1), trip.noOfPassenger, trip.status,
               (trip.personnel ? new Driver(trip.personnel.fullName, trip.personnel.phone) : null),
               (trip.vehicle ? new Vehicle(trip.vehicle.plateNumber, trip.vehicle.make + ' ' + trip.vehicle.model, trip.vehicle.color) : null),
-              trip.id, trip.expectedEndDate, (trip.taskTripId ? trip.taskTripId : null));
+              trip.id, trip.expectedEndDate, (trip.taskTripId ? trip.taskTripId : null), trip.serviceType);
             }
           );
           // console.log(formattedTrips);
@@ -46,7 +47,7 @@ export class TripsService {
       )
       .do(
         (trips) => {
-          if (trips.response) {
+          if (trips.response == 'fail') {
             this.trips == [];
           } else {
             this.trips = trips;

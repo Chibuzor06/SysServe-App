@@ -10,16 +10,16 @@
   <ion-list>
     <ion-item>
       <ion-icon name="icon-marker-circle" item-left></ion-icon>
-      <ion-input required name="departure" type="text" placeholder="Departure" ngModel></ion-input>
+      <ion-input required name="departure" type="text" placeholder="Departure" [ngModel]="this.input1?.value" ngModel></ion-input>
     </ion-item>
     <ion-item>
       <ion-icon name="icon-marker" item-left></ion-icon>
-      <ion-input required name="destination" type="text" placeholder="Destination" ngModel></ion-input>
+      <ion-input required name="destination" type="text" placeholder="Destination" [ngModel]="this.input2?.value"></ion-input>
     </ion-item>
     <ion-item text-center>
       <ion-icon name="ios-calendar-outline" item-left></ion-icon>
       <ion-datetime required name="dateTime" no-padding placeholder="Return Date/Time"
-        displayFormat="MMM/DD/YYYY, HH:mm"  pickerFormat="DD/MM/YYYY, HH:mm"
+        displayFormat="DD/MMM/YYYY, HH:mm"  pickerFormat="DD/MM/YYYY, HH:mm"
         [(ngModel)]="dateTime" placeholder="Pick up Date/Time" text-center></ion-datetime>
     </ion-item>
     <ion-item>
@@ -43,7 +43,7 @@
         <ion-label>
           Vehicle Class
         </ion-label>
-        <ion-select name="vehicleClass" [(ngModel)]="vehicleClass" (ionChange)="onVehicleClassChosen($event)">
+        <ion-select interface="popover" name="vehicleClass" [(ngModel)]="vehicleClass" (ionChange)="onVehicleClassChosen($event)">
           <ion-option *ngFor="let cat of vehicleCategories" [value]="cat">{{ cat }}</ion-option>
         </ion-select>
       </ion-item>
@@ -51,13 +51,13 @@
         <ion-label>
           Make/Model
         </ion-label>
-        <ion-select name="makeModel" [(ngModel)]="vehicleGroupID" (ionChange)="onVehicleChosen($event)">
+        <ion-select interface="popover" name="makeModel" [(ngModel)]="vehicleGroupID" (ionChange)="onVehicleChosen($event)">
           <ion-option *ngFor="let car of vehicles" [value]="car.id">{{ car.make + ' '}} {{ car.model }}</ion-option>
         </ion-select>
       </ion-item>
       <ion-row>
         <ion-col col-12>
-          <img class="cover" [src]="this.safeImageUrl">
+          <img class="cover" [src]="this.safeImageUrl" alt="No Image Available">
         </ion-col>
       </ion-row>
     </div>

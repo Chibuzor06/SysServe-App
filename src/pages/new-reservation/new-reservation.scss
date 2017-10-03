@@ -1,8 +1,45 @@
 page-new-reservation {
-  .cover {
-    // object-fit: cover;
-    // object-position: center;
-    margin: 0 auto;
+  
+  ion-card {
+    position: relative;
+    // text-align: right;
+    border-radius: 40px;
     display: block;
+    max-width: 90%;
+    margin: 0 auto;
+    // max-height: 80%;
+  }
+  img {
+    width: 100px;
+    border-radius: 8px;
+    // max-height: 30%;
+  }
+  .card-title {
+    position: absolute;
+    top: 40%;
+    font-size: 1.4em;
+    margin-left: 120px;
+    width: 100%;
+    // margin: 0 auto;
+    // background-color: white;
+    text-shadow: 1px 1px map-get($colors, primary);
+    font-weight: bold;
+    color: map-get($colors, light);
+  }
+  .image {
+    margin: 0;
+    // border-radius: 20px;
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    z-index: 2;
+  }
+  .daily-rental {
+    background: url('../assets/images/daily-rental.png') no-repeat transparent;
+    background-size: 100%;
+  }
+  .pick-up {
+    background: url('../assets/images/pickup.png') no-repeat transparent;
+    background-size: 100%;
   }
 }

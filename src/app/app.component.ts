@@ -20,7 +20,7 @@ export class MyApp{
     this.userSrvc.loggedIn()
     .then( data => {
       if (data.accessedStorage && data.user) {
-        this.rootPage = 'WelcomePage';
+        this.rootPage = 'HomePage';
       } else if (data.accessedStorage && !data.user) {
         this.rootPage = 'LoginPage';
       } else {
@@ -56,14 +56,7 @@ export class MyApp{
     // WelcomePage.segment = 'messages';
     this.segmentSrvc.setCurrentSegment('messages');
     this.menuCtrl.close();
-    this.nav.setRoot('WelcomePage');
-  }
-
-  onViewTrips() {
-    // WelcomePage.segment = 'messages';
-    this.segmentSrvc.setCurrentSegment('trips');
-    this.menuCtrl.close();
-    this.nav.setRoot('WelcomePage');
+    this.nav.setRoot('HomePage');
   }
 
   onLogout() {

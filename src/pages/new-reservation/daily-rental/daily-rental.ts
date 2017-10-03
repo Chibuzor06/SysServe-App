@@ -2,7 +2,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DataAcessService } from './../../../services/data-access.service';
 import { NgForm } from '@angular/forms';
 import { Component } from '@angular/core';
-import { IonicPage, LoadingController, AlertController, NavController, Events } from 'ionic-angular';
+import { IonicPage, LoadingController, AlertController, NavController, Events, NavParams } from 'ionic-angular';
 import { googlemaps } from 'googlemaps';
 
 @IonicPage()
@@ -11,6 +11,8 @@ import { googlemaps } from 'googlemaps';
   templateUrl: './daily-rental.html'
 })
 export class DailyRentalPage{
+
+  mode: string //either edit or new
 
   input1: HTMLInputElement; //departure input
   input2: HTMLInputElement; //destination input
@@ -21,11 +23,19 @@ export class DailyRentalPage{
   vehicleClass: string;
   vehicles: { id: number, make: string, model: string }[];
   vehicleGroupID: number;
+  departure: string;
+  destination: string;
+
 
   constructor( private dataAccessSrvc: DataAcessService, private loadingCtrl: LoadingController,
     private alertCtrl: AlertController, private navCtrl: NavController, private events: Events,
-    private domSanitizer: DomSanitizer
-  ) {}
+    private domSanitizer: DomSanitizer, private navParams: NavParams
+  ) {
+    this.mode = navParams.get('mode');
+    if (this.mode == 'edit') {
+      
+    }
+  }
 
   ngOnInit() {
     //Getting vehicle categories from server on page init.
@@ -64,7 +74,8 @@ export class DailyRentalPage{
     autocomplete1.addListener("place_changed", () => {
       let place1: google.maps.places.PlaceResult = autocomplete1.getPlace();
       if (place1) {
-        this.input1.value = place1.formatted_address;
+        // this.input1.value = place1.formatted_address;
+        // this.departure = this.input1.value;
         // console.log('input 1', this.input1.value)
       }
       // console.log(this.departure);
@@ -72,7 +83,9 @@ export class DailyRentalPage{
     autocomplete2.addListener("place_changed", () => {
       let place2: google.maps.places.PlaceResult = autocomplete2.getPlace();
       if (place2) {
-        this.input2.value = place2.formatted_address;
+        // this.input2.value = place2.formatted_address;
+        // console.log(this.input2.value);
+        // this.destination = this.input2.value;
       }
       // console.log(this.destination);
     });
@@ -96,8 +109,8 @@ export class DailyRentalPage{
     const reservation = this.dataAccessSrvc.createNewReservation('Daily Rental', form.value.departure, form.value.destination, dateTime,
       form.value.passengerName,
       form.value.passengers, form.value.noOfDays,
-      '', this.vehicleGroupID);
-
+      '', (form.value.vehicleGroupID ? form.value.vehicleGroupID : ''));
+    // loader.dismiss();
     reservation.subscribe(
       data => {
         const obj = data.json();

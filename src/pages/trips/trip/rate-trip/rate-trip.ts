@@ -1,6 +1,6 @@
-import { DataAcessService } from './../../../services/data-access.service';
+import { DataAcessService } from './../../../../services/data-access.service';
 import { NgForm } from '@angular/forms';
-import { Trip } from './../../../models/trip.model';
+import { Trip } from './../../../../models/trip.model';
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, AlertController, NavController } from 'ionic-angular';
 

@@ -8,15 +8,21 @@
 
 
 <ion-content padding>
-  <ion-card>
-    <button ion-item (click)="loadPage('PickDropPage')">
-      Pick up/Drop Off
-    </button>
+  <ion-card style="text-align: center">
+    <h2 style="color:white; padding: 10px">Select a reservation type</h2>
   </ion-card>
-  <ion-card>
-    <button ion-item (click)="loadPage('DailyRentalPage')">
-      Daily Rental
-    </button>
-  </ion-card>
-
+  <a (click)="loadPage('PickDropPage')" margin-top>
+    <ion-card detail-push>
+      <!-- <img src="../assets/images/pickup.png" width="100px"> -->
+      <div class="image pick-up"></div>
+      <div class="card-title">Pick up/ Drop Off</div>
+    </ion-card>
+  </a>
+  <a (click)="loadPage('DailyRentalPage')" >
+    <ion-card margin-top detail-push >
+      <!-- <img src="../assets/images/daily-rental.png"> -->
+      <div class="image daily-rental"></div>
+      <div class="card-title">Daily Rental</div>
+    </ion-card>
+  </a>
 </ion-content>

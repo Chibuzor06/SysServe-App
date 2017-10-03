@@ -1,5 +1,5 @@
 page-trip {
-  .button {
+  .custom-button {
     // background-color: #4CAF50; /* Green */
     background-color: map-get($colors, light);
     border: none;
@@ -16,7 +16,7 @@ page-trip {
     box-shadow: 1px 1px 3px #030303;
     // cursor: pointer;
   }
-  .button:active {
+  .custom-button:active {
     // background-color: #184119;
     background-color: black;
     color: white;

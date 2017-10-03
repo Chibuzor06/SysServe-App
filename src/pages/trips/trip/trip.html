@@ -3,8 +3,8 @@
   <ion-navbar>
     <ion-title>View Trip - {{trip?.ID}}</ion-title>
     <ion-buttons end>
-      <button class="button"
-        [disabled]="!canRate"
+      <button class="custom-button"
+        [hidden]="!canRate"
         right  icon-right (click)="onRateTrip()">
         Rate Trip
         <ion-icon></ion-icon>
@@ -15,53 +15,6 @@
 
 
 <ion-content padding>
-  <!-- <ion-list>
-    <ion-list-header>Trip details</ion-list-header>
-    <ion-item>
-      <ion-label>Departure: </ion-label>
-      <ion-col col-7 item-end>{{trip?.departure}}</ion-col>
-    </ion-item>
-    <ion-item>
-      <ion-label>Destination: </ion-label>
-      <ion-col item-end col-7>{{trip?.destination}}</ion-col>
-    </ion-item>
-    <ion-item>
-      <ion-label>Pickup Date:  </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>No. of Days:  </ion-label>
-      <ion-col item-end col-7>{{trip?.noOfDays}}</ion-col>
-    </ion-item>
-    <ion-item>
-      <ion-label>No. of Passengers: {{trip?.noOfpassengers}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>Status:  </ion-label>
-      <ion-col item-end col-7>{{trip?.status}}</ion-col>
-    </ion-item>
-    <ion-list-header>Driver details</ion-list-header>
-    <ion-item>
-      <ion-label>Name: </ion-label>
-      <ion-col item-end col-7> {{trip?.driver?.name}}</ion-col>
-    </ion-item>
-    <ion-item>
-      <ion-label>Phone No.:</ion-label>
-      <ion-col item-end col-7> {{trip?.driver?.phoneNumber}}</ion-col>
-    </ion-item>
-    <ion-list-header>Vehicle details</ion-list-header>
-    <ion-item>
-      <ion-label>Plate No.:</ion-label>
-      <ion-col item-end col-7> {{trip?.vehicle?.plateNo}}</ion-col>
-    </ion-item>
-    <ion-item>
-      <ion-label>Make/Model:</ion-label>
-      <ion-col item-end col-7> {{trip?.vehicle?.makeModel}}</ion-col>
-    </ion-item>
-    <ion-item>
-      <ion-label>Color:</ion-label>
-      <ion-col item-end col-7> {{trip?.vehicle?.color}}</ion-col>
-    </ion-item>
-  </ion-list> -->
   <ion-grid>
     <ion-row>
       <ion-col class="label">Departure :</ion-col>
@@ -88,7 +41,7 @@
       <ion-col>{{trip?.status}}</ion-col>
     </ion-row>
     <ion-row class="header">
-      <ion-col >Vehicle details</ion-col>
+      <ion-col >Driver details</ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="label">Name :</ion-col>
@@ -114,4 +67,10 @@
       <ion-col>{{trip?.vehicle?.color}}</ion-col>
     </ion-row>
   </ion-grid>
+  <button ion-button color="primary" margin-top outline block round 
+    [hidden]="!canEdit" (click)="onUpdateTrip()"
+  >Update Trip</button>
+  <button ion-button color="danger" outline block round
+    [hidden]="!canEdit" (click)="onCancelTrip()"
+  >Cancel Trip</button>
 </ion-content>

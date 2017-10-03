@@ -18,10 +18,9 @@
         <ion-input required name="destination" type="text" placeholder="Destination" [ngModel]="this.input2?.value"></ion-input>
       </ion-item>
       <ion-item>
-        <!-- <ion-label floating>Pick up Date/Time</ion-label> -->
         <ion-icon name="ios-calendar-outline" item-left></ion-icon>
         <ion-datetime required name="dateTime" no-padding placeholder="Pickup Date/Time"
-          displayFormat="MMM/DD/YYYY, HH:mm"  pickerFormat="MM/DD/YYYY, HH:mm"
+          displayFormat="DD/MMM/YYY, HH:mm"  pickerFormat="MM/DD/YYYY, HH:mm"
           [(ngModel)]="dateTime"></ion-datetime>
       </ion-item>
       <ion-item>
@@ -31,7 +30,7 @@
       <ion-item *ngIf="returnTrip">
         <ion-icon name="ios-calendar-outline" item-left></ion-icon>
         <ion-datetime required name="returnDateTime" no-padding placeholder="Return Date/Time"
-          displayFormat="MMM/DD/YYYY, HH:mm" pickerFormat="MM/DD/YYYY, HH:mm"
+          displayFormat="DD/MMM/YYYY, HH:mm" pickerFormat="MM/DD/YYYY, HH:mm"
           [(ngModel)]="returnDateTime" text-center></ion-datetime>
       </ion-item>
       <ion-item>
@@ -51,7 +50,7 @@
           <ion-label>
             Vehicle Class
           </ion-label>
-          <ion-select name="vehicleClass" [(ngModel)]="vehicleClass" (ionChange)="onVehicleClassChosen($event)">
+          <ion-select interface="popover" name="vehicleClass" [(ngModel)]="vehicleClass" (ionChange)="onVehicleClassChosen($event)">
             <ion-option *ngFor="let cat of vehicleCategories" [value]="cat">{{ cat }}</ion-option>
           </ion-select>
         </ion-item>
@@ -59,7 +58,7 @@
           <ion-label>
             Make/Model
           </ion-label>
-          <ion-select name="vehicleGroupID" (ionChange)="onVehicleChosen($event)">
+          <ion-select interface="popover" name="vehicleGroupID" (ionChange)="onVehicleChosen($event)">
             <ion-option *ngFor="let car of vehicles" [value]="car.id">{{ car.make + ' '}} {{ car.model }}</ion-option>
           </ion-select>
         </ion-item>

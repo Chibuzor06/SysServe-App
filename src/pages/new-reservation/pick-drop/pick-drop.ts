@@ -65,15 +65,18 @@ export class PickDropPage implements OnInit{
     autocomplete1.addListener("place_changed", () => {
       let place1: google.maps.places.PlaceResult = autocomplete1.getPlace();
       if (place1) {
-        this.input1.value = place1.formatted_address;
-        // console.log('input 1', this.input1.value)
+        console.log('input 1', this.input1.value);
+        // console.log(place1);
+        // // console.log(place1);
+        // this.input1.value = place1.formatted_address;
+        // console.log('input 1 again', this.input1.value)
       }
       // console.log(this.departure);
     });
     autocomplete2.addListener("place_changed", () => {
       let place2: google.maps.places.PlaceResult = autocomplete2.getPlace();
       if (place2) {
-        this.input2.value = place2.formatted_address;
+        // this.input2.value = place2.formatted_address;
       }
       // console.log(this.destination);
     });
@@ -92,12 +95,13 @@ export class PickDropPage implements OnInit{
     // formatting time to a format the server can understand (remove the 'Z' at the end).
     const dateTime = form.value.dateTime.slice(0, 19);
     // console.log('New ', dateTime);
-    const returnDateTime = form.value.returnDateTime.slice(0, 19);
+    const returnDateTime = form.value.returnTrip? form.value.returnDateTime.slice(0, 19) : '';
 
     const reservation = this.dataAccessSrvc.createNewReservation('Pick Up/Drop Off', form.value.departure, form.value.destination, dateTime,
       form.value.passengerName,
       form.value.passengers, null,
-      (form.value.returnTrip ? form.value.returnDateTime: ''), this.vehicleGroupID);
+      returnDateTime, (form.value.vehicleGroupID ? form.value.vehicleGroupID : ''));
+      // loader.dismiss();
 
     reservation.subscribe(
       data => {

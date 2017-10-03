@@ -8,8 +8,8 @@
     </ion-toolbar>
 
   </ion-header>
-  <ion-content class="menu">
-    <ion-list no-lines>
+  <ion-content class="menu" padding-top>
+    <ion-list >
       <button class="menu-button"
         ion-item
         icon-left
@@ -18,7 +18,7 @@
         New Reservation
       </button>
       <button class="menu-button"
-        ion-item icon-left (click)="onViewTrips()">
+        ion-item icon-left (click)="onLoadPage('TripsPage')">
         <ion-icon name="car" color="primary"></ion-icon>
         My Trips
       </button>

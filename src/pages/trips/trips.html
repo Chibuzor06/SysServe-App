@@ -1,0 +1,36 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Your Trips</ion-title>
+    <!-- <button icon-only ion-button large menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button> -->
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content  padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3>Pick-Up Date</ion-col>
+      <ion-col col-4 offset-1>Departure</ion-col>
+      <ion-col col-4>Destination</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <p *ngIf="actionMessage"> {{ actionMessage }}</p>
+        <p *ngIf="!trips && !actionMessage">Loading Trips... <!--span><img height="" src="assets/images/loading2.gif"></span--></p>
+      </ion-col>
+    </ion-row>
+    <div class="row-item" *ngFor="let trip of trips; let i = index" [ngClass]="{'border' : i % 2 == 0}"
+    (click)="onTripSelected(i)">
+      <ion-row>
+        <ion-col col-3>{{ trip.pickupDate }}</ion-col>
+        <ion-col col-4 offset-1>{{ trip.departure }}</ion-col>
+        <ion-col col-4>{{ trip.destination }}</ion-col>
+      </ion-row>
+      <hr>
+    </div>
+  </ion-grid>
+</ion-content>

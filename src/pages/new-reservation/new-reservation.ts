@@ -14,7 +14,9 @@ export class NewReservationPage {
   }
 
   loadPage(page: any) {
-    this.navCtrl.push(page);
+    this.navCtrl.push(page, {
+      mode: 'new'
+    });
   }
 
 }

@@ -6,9 +6,5 @@
     "cordova": {}
   },
   "proxies": [
-    {
-      "path": "/sysserve",
-      "proxyUrl": "http://test.fleet.sysservesolutions.com/"
-    }
   ]
 }

@@ -55,7 +55,7 @@ export class LoginPage {
           } else {
             console.log('data here', data);
             this.userService.setUserWithResponseData(data);
-            this.navCtrl.setRoot('WelcomePage');
+            this.navCtrl.setRoot('HomePage');
           }
         },
         err => {
