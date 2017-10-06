@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Component } from '@angular/core';
 import { IonicPage, LoadingController, AlertController, NavController, Events, NavParams } from 'ionic-angular';
 import { googlemaps } from 'googlemaps';
+import { Trip } from '../../../models/trip.model';
 
 @IonicPage()
 @Component({
@@ -11,9 +12,10 @@ import { googlemaps } from 'googlemaps';
   templateUrl: './daily-rental.html'
 })
 export class DailyRentalPage{
-
+  vehicleChosen: boolean;
+  noImageText: any;
   mode: string //either edit or new
-
+  tripEdit: Trip;
   input1: HTMLInputElement; //departure input
   input2: HTMLInputElement; //destination input
   imageData: string;
@@ -23,8 +25,11 @@ export class DailyRentalPage{
   vehicleClass: string;
   vehicles: { id: number, make: string, model: string }[];
   vehicleGroupID: number;
-  departure: string;
-  destination: string;
+  // departure: string;
+  // destination: string;
+  dateTime: string;
+  // passenger: number;
+  // passengerName: string;
 
 
   constructor( private dataAccessSrvc: DataAcessService, private loadingCtrl: LoadingController,
@@ -33,7 +38,9 @@ export class DailyRentalPage{
   ) {
     this.mode = navParams.get('mode');
     if (this.mode == 'edit') {
-      
+      this.tripEdit = navParams.get('trip');
+      console.log(this.tripEdit);
+      // this.dateTime = new Date(this.tripEdit.pickupDate).toISOString();
     }
   }
 
@@ -57,18 +64,14 @@ export class DailyRentalPage{
 
   ionViewDidLoad() {
     // initializing auto-complete
-    // apparently doesn't work on ios
     const predictOptions = {
-      // types: ['(cities)'],
       componentRestrictions: {country: 'ng'}
     };
 
     this.input1 = <HTMLInputElement>(document.getElementsByClassName('text-input')[0]);
-    // console.log(this.input1);
     const autocomplete1 = new google.maps.places.Autocomplete(this.input1, predictOptions);
 
     this.input2 = <HTMLInputElement>(document.getElementsByClassName('text-input')[1]);
-    // console.log(this.input2);
     const autocomplete2 = new google.maps.places.Autocomplete(this.input2, predictOptions);
 
     autocomplete1.addListener("place_changed", () => {
@@ -78,7 +81,6 @@ export class DailyRentalPage{
         // this.departure = this.input1.value;
         // console.log('input 1', this.input1.value)
       }
-      // console.log(this.departure);
     });
     autocomplete2.addListener("place_changed", () => {
       let place2: google.maps.places.PlaceResult = autocomplete2.getPlace();
@@ -87,10 +89,13 @@ export class DailyRentalPage{
         // console.log(this.input2.value);
         // this.destination = this.input2.value;
       }
-      // console.log(this.destination);
     });
+    if (this.mode == 'edit') {
+      this.input1.value = this.tripEdit.departure;
+      this.input2.value = this.tripEdit.destination;
+    }
   }
-  onNewReservation(form: NgForm) {
+  onCreateReservation(form: NgForm) {
     console.log(form.value);
 
     const loader = this.loadingCtrl.create({
@@ -128,7 +133,11 @@ export class DailyRentalPage{
             }
           );
         } else {
-          alertMessage = 'New reservation created.';
+          if(this.mode == 'edit') {
+            alertMessage = 'Reservation edited successfully';
+          } else {
+            alertMessage = 'New reservation created.';
+          }
           const alert = this.alertCtrl.create({
             message: alertMessage,
             buttons: ['Ok']
@@ -158,11 +167,18 @@ export class DailyRentalPage{
   }
 
   onVehicleClassChosen(value: string) {
+    console.log('heretic');
     if (value == '' || !value) {
       return;
     }
+    if (!(value == this.vehicleClass)) {
+      console.log('heresy');
+      // this.vehicles = null;
+      this.noImageText = null;
+      this.vehicleChosen = false;
+    }
     const loader = this.loadingCtrl.create({
-      content: 'Loading ' + this.vehicleClass + ' category',
+      content: 'Loading ' + value + ' category',
       dismissOnPageChange: true,
       enableBackdropDismiss: true
     });
@@ -173,16 +189,18 @@ export class DailyRentalPage{
         this.vehicleGroupID = 0;
         // console.log(this.vehicles);
         loader.dismiss();
-
+        this.vehicleClass = value;
       },
       err => {
         loader.dismiss();
         console.log(err);
       }
     );
+    console.log('Vehicle Class', this.vehicleClass)
   }
 
   onVehicleChosen(id: number) {
+    this.vehicleChosen = true;
     const loader = this.loadingCtrl.create({
       content: 'Loading vehicle image',
       dismissOnPageChange: true,
@@ -193,11 +211,14 @@ export class DailyRentalPage{
     // console.log(id);
     this.dataAccessSrvc.loadVehicleImage(id).subscribe(
       data => {
-        if( data.json() == {} || !data.json()) {
+        if( data.json().encodedContent == null) {
           loader.dismiss();
+          this.noImageText = "Image currently Unavailable";
+          // console.log('ere');
           return;
         } else {
           loader.dismiss();
+          // console.log('eret', data);
           this.imageData += data.json().encodedContent;
           // console.log(this.imageData);
           this.safeImageUrl = this.domSanitizer.bypassSecurityTrustUrl(this.imageData);

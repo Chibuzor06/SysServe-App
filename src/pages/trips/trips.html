@@ -1,17 +1,38 @@
 <ion-header>
 
-  <ion-navbar>
+  <!-- <ion-navbar *ngIf="!markMode">
     <ion-title>Your Trips</ion-title>
-    <!-- <button icon-only ion-button large menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button> -->
-  </ion-navbar>
+  </ion-navbar> -->
+  <ion-toolbar *ngIf="!markMode">
+    <ion-buttons left>
+      <button ion-button icon-only navPop>
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>My Trips</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="markMode">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="onNoMoreMarking()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      {{ selectedTripIDs.length }}
+    </ion-title>
+    <ion-buttons end >
+        <button icon-only ion-button (click)="onCancelTrips()">
+          <ion-icon  name="close-circle"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-toolbar>
 
 </ion-header>
 
 
-<ion-content  padding>
-  <ion-grid>
+<ion-content>
+  <!-- <ion-grid>
     <ion-row>
       <ion-col col-3>Pick-Up Date</ion-col>
       <ion-col col-4 offset-1>Departure</ion-col>
@@ -20,7 +41,7 @@
     <ion-row>
       <ion-col>
         <p *ngIf="actionMessage"> {{ actionMessage }}</p>
-        <p *ngIf="!trips && !actionMessage">Loading Trips... <!--span><img height="" src="assets/images/loading2.gif"></span--></p>
+        <p *ngIf="!trips && !actionMessage">Loading Trips...</p>
       </ion-col>
     </ion-row>
     <div class="row-item" *ngFor="let trip of trips; let i = index" [ngClass]="{'border' : i % 2 == 0}"
@@ -32,5 +53,80 @@
       </ion-row>
       <hr>
     </div>
-  </ion-grid>
+  </ion-grid> -->
+  <div class="loading" padding-vertical>
+    <p *ngIf="actionMessage" padding-horizontal> {{ actionMessage }}</p>
+    <div *ngIf="!loadedTrips && !actionMessage">
+      <ion-item class="transparent" no-padding>
+        <ion-spinner name="bubbles" color="primary" item-left></ion-spinner>
+        Loading Trips...
+      </ion-item>
+      <!-- <h6><ion-spinner name="bubbles" color="primary"></ion-spinner> Loading Trips...</h6> -->
+    </div>
+  </div>
+
+
+
+  <ion-list [virtualScroll]="trips" [virtualTrackBy]="trackByFn" approxItemHeight="294px">
+    <ion-card [ngClass]="{'white': !trip.selected && i % 2 != 0, 'selected' : trip.selected, 'border' : !trip.selected && i % 2 == 0}"
+    *virtualItem="let trip; let i = index"
+    [class]="trip.class"
+    class="white" (click)="markMode ? selectTrip(i): onTripSelected(i)"
+    (press)="markMode ? selectTrip(i) : onPress(i)" no-padding>
+      <ion-card-header class="transparent" no-padding >
+        <ion-item class="transparent" text-center>
+            Trip No.: {{ trip.ID }}
+          <ion-icon *ngIf="trip.selected && markMode"
+          item-right name="ios-checkmark-circle-outline"></ion-icon>
+          <!-- <ion-icon *ngIf="trip.selected && mode=='mark'"
+          item-right name="ios-checkmark-circle-outline"></ion-icon> -->
+        </ion-item>
+      </ion-card-header>
+      <hr style="border-top: 1px solid #ccc">
+      <!-- <ion-card-content >
+        <ion-row>
+          <ion-col col-4 class="grey">Type:</ion-col>
+          <ion-col>{{ trip.serviceType }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4 class="grey">Departure:</ion-col>
+          <ion-col>{{ trip.departure }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4 class="grey">Destination:</ion-col>
+          <ion-col> {{ trip.destination}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4 class="grey">PickUp Date: </ion-col>
+          <ion-col>{{ trip.displayPickupDate}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4 class="grey">Status: </ion-col>
+          <ion-col>{{ trip.status }}</ion-col>
+        </ion-row>
+      </ion-card-content> -->
+      <ion-card-content no-padding>
+        <ion-item class="transparent">
+          <ion-icon item-start name="code"></ion-icon>
+          <ion-col>{{ trip.serviceType }}</ion-col>
+        </ion-item>
+        <ion-item class="transparent">
+          <ion-icon item-start name="icon-marker-circle"></ion-icon>
+            {{ trip.departure }}
+        </ion-item>
+        <!-- <ion-item class="transparent">
+          <ion-icon item-start name="icon-marker"></ion-icon>
+          {{ trip.destination}}
+        </ion-item> -->
+        <ion-item class="transparent">
+          <ion-icon item-start name="ios-calendar-outline"></ion-icon>
+          {{ trip.displayPickupDate}}
+        </ion-item>
+        <ion-item class="transparent">
+          <ion-icon item-start name="information-circle"></ion-icon>
+          {{ trip.status}}
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 </ion-content>

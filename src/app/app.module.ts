@@ -12,6 +12,7 @@ import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
+import { OneSignal } from '@ionic-native/onesignal';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MyApp } from './app.component';
     SegmentService,
     DataAcessService,
     SplashScreen,
+    OneSignal,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

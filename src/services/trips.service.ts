@@ -12,12 +12,6 @@ import 'rxjs/Rx'
 export class TripsService {
 
   trips: Trip[];
-  // trips: Trip[] = [
-  //   new Trip('Tomorrow', 'Abuja', new Date().toDateString(), 3, 4, 'Submitted', new Driver('Abiodun', 28132121234),
-  //     new Vehicle('AAA-2109V', 'Nissan Explorer','brown'), '316', new Date().toLocaleDateString()),
-  //   new Trip('Next Week', 'Ibadan', new Date().toDateString(), 3, 4, 'Confirmed', new Driver('Ibile', 2121212),
-  //     new Vehicle('DCA-1093G', 'Honda Disaster','green'), '202', new Date().toLocaleDateString())
-  // ];
   constructor(private http: Http, private userSrvc: UserService ) {}
   loadTrips(){
     const query: string = GlobalConstants.url + '/mobile/GetTrips.do?user.token=' + this.userSrvc.getUserToken();
@@ -35,7 +29,7 @@ export class TripsService {
             trip => {
               // console.log(trip);
               return new Trip(trip.departure, trip.destination, <string>trip.pickUpDate,
-              (trip.noOfDays? trip.noOfDays : 1), trip.noOfPassenger, trip.status,
+              (trip.noOfDays? trip.noOfDays : 1), trip.noOfPassenger, trip.passengerName, trip.status,
               (trip.personnel ? new Driver(trip.personnel.fullName, trip.personnel.phone) : null),
               (trip.vehicle ? new Vehicle(trip.vehicle.plateNumber, trip.vehicle.make + ' ' + trip.vehicle.model, trip.vehicle.color) : null),
               trip.id, trip.expectedEndDate, (trip.taskTripId ? trip.taskTripId : null), trip.serviceType);

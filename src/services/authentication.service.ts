@@ -8,9 +8,9 @@ export class AuthenticationService {
 
   constructor(private http: Http) {}
 
-  login(username: string, password: string) {
+  login(username: string, password: string, deviceId: string) {
     const query = GlobalConstants.url + '/mobile/Login.do?user.email=' +
-    username + '&user.password=' + password;
+    username + '&user.password=' + password + '&deviceId=' + deviceId;
     console.log(query);
     return this.http.get(query)
       .map((response: Response) => {

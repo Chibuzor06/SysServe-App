@@ -18,56 +18,56 @@
   <ion-grid>
     <ion-row>
       <ion-col class="label">Departure :</ion-col>
-      <ion-col>{{trip?.departure}}</ion-col>
+      <ion-col col-7>{{trip?.departure}}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="label">Destination :</ion-col>
-      <ion-col>{{trip?.destination}}</ion-col>
+      <ion-col col-7>{{trip?.destination}}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="label">Pickup Date :</ion-col>
-      <ion-col>{{trip?.pickupDate}}</ion-col>
+      <ion-col col-7>{{trip?.displayPickupDate}}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="label">No. of Days :</ion-col>
-      <ion-col>{{trip?.noOfDays}}</ion-col>
+      <ion-col col-7>{{trip?.noOfDays}}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="label">No. of Passengers :</ion-col>
-      <ion-col>{{trip?.noOfpassengers}}</ion-col>
+      <ion-col col-7>{{trip?.noOfpassengers}}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="label">Status :</ion-col>
-      <ion-col>{{trip?.status}}</ion-col>
+      <ion-col col-7>{{trip?.status}}</ion-col>
     </ion-row>
     <ion-row class="header">
       <ion-col >Driver details</ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="label">Name :</ion-col>
-      <ion-col>{{trip?.driver?.name}}</ion-col>
+      <ion-col col-7>{{trip?.driver?.name}}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="label">Phone No. :</ion-col>
-      <ion-col>{{trip?.driver?.phoneNumber}}</ion-col>
+      <ion-col col-7>{{trip?.driver?.phoneNumber}}</ion-col>
     </ion-row>
     <ion-row class="header">
       <ion-col>Vehicle details</ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="label">Plate No. :</ion-col>
-      <ion-col>{{trip?.vehicle?.plateNo}}</ion-col>
+      <ion-col col-7>{{trip?.vehicle?.plateNo}}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="label">Make/Model :</ion-col>
-      <ion-col>{{trip?.vehicle?.makeModel}}</ion-col>
+      <ion-col col-7>{{trip?.vehicle?.makeModel}}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="label">Color :</ion-col>
-      <ion-col>{{trip?.vehicle?.color}}</ion-col>
+      <ion-col col-7>{{trip?.vehicle?.color}}</ion-col>
     </ion-row>
   </ion-grid>
-  <button ion-button color="primary" margin-top outline block round 
+  <button ion-button color="primary" margin-top outline block round
     [hidden]="!canEdit" (click)="onUpdateTrip()"
   >Update Trip</button>
   <button ion-button color="danger" outline block round

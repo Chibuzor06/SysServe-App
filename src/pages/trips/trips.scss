@@ -9,9 +9,41 @@ page-trips {
     // border-left: 6px solid transparent;
   }
   .border {
-    background-color: #333333;
+    background-color: #424040;
+    // color: black;
+    color: white;
   }
   hr {
     height: 0;
+  }
+  .selected {
+    background-color: #8D8989;
+    // background-color: map-get($colors, primary);
+    // background-color: rgba(194, 74, 5, 0.78);
+  }
+  .white {
+    background-color: #252424;
+    color: white;
+  }
+  .white:active, .border:active{
+    // color: black;
+    // background-color: #555353;
+    background-color: #8D8989;
+  }
+  .transparent {
+    background-color: transparent;
+    // color: transparent;
+    color: inherit;
+  }
+  .grey {
+    color: #C5BDBD;
+  }
+  .loading {
+    position: relative;
+    top: 20%;
+    margin: 0 auto;
+    width: 80%;
+    border-left: 10px solid map-get($colors, primary);
+    background-color: #615B5B;
   }
 }

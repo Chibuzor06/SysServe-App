@@ -6,11 +6,11 @@
 
 
 <ion-content padding>
-  <form #f="ngForm" (ngSubmit)="onNewReservation(f)">
+  <form #f="ngForm" (ngSubmit)="onCreateReservation(f)">
   <ion-list>
     <ion-item>
       <ion-icon name="icon-marker-circle" item-left></ion-icon>
-      <ion-input required name="departure" type="text" placeholder="Departure" [ngModel]="this.input1?.value" ngModel></ion-input>
+      <ion-input required name="departure" type="text" placeholder="Departure" [ngModel]="this.input1?.value"></ion-input>
     </ion-item>
     <ion-item>
       <ion-icon name="icon-marker" item-left></ion-icon>
@@ -19,20 +19,20 @@
     <ion-item text-center>
       <ion-icon name="ios-calendar-outline" item-left></ion-icon>
       <ion-datetime required name="dateTime" no-padding placeholder="Return Date/Time"
-        displayFormat="DD/MMM/YYYY, HH:mm"  pickerFormat="DD/MM/YYYY, HH:mm"
-        [(ngModel)]="dateTime" placeholder="Pick up Date/Time" text-center></ion-datetime>
+        displayFormat="DD/MMM/YYYY, HH:mm"  pickerFormat="DD/MM/YYYY, HH:mm" min="2017" max="2040"
+        [ngModel]="tripEdit?.pickupDate" placeholder="Pick up Date/Time" text-center></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-icon name="ios-partly-sunny-outline" item-left></ion-icon>
-      <ion-input required type="number" name="noOfDays" placeholder="No. of days" ngModel="noOfDays"></ion-input>
+      <ion-input required type="number" name="noOfDays" placeholder="No. of days" [ngModel]="tripEdit?.noOfDays"></ion-input>
     </ion-item>
     <ion-item>
       <ion-icon name="ios-people-outline" item-left></ion-icon>
-      <ion-input required type="number" name="passengers" placeholder="No. of passengers" ngModel></ion-input>
+      <ion-input required type="number" name="passengers" placeholder="No. of passengers" [ngModel]="tripEdit?.noOfpassengers"></ion-input>
     </ion-item>
     <ion-item>
       <ion-icon name="ios-person-add-outline" item-left></ion-icon>
-      <ion-input required type="text" name="passengerName" placeholder="Passenger Name" ngModel></ion-input>
+      <ion-input required type="text" name="passengerName" placeholder="Passenger Name" [ngModel]="tripEdit?.passengerName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Select Vehicle (optional)</ion-label>
@@ -57,7 +57,13 @@
       </ion-item>
       <ion-row>
         <ion-col col-12>
-          <img class="cover" [src]="this.safeImageUrl" alt="No Image Available">
+          <div *ngIf="!safeImageUrl && vehicleChosen && !noImageText" style="width: 10%; margin:15% auto">
+            <ion-spinner name="bubbles" color="primary"></ion-spinner>
+          </div>
+          <img class="cover" *ngIf="safeImageUrl && !noImageText && vehicleChosen" [src]="safeImageUrl">
+          <div *ngIf="noImageText && vehicleChosen" text-center style="margin:15% auto">
+            <p>{{ noImageText }}</p>
+          </div>
         </ion-col>
       </ion-row>
     </div>

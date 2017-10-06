@@ -5,33 +5,36 @@ import { Component, ViewChild} from '@angular/core';
 import { Platform, MenuController, NavController, LoadingController, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { OneSignal } from '@ionic-native/onesignal';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp{
   rootPage: any;
+  // deviceId: string;
   @ViewChild('nav') nav: NavController;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private menuCtrl: MenuController, private segmentSrvc: SegmentService, private tripsService: TripsService,
-    private userSrvc: UserService, private loadingCtrl: LoadingController, private alertCtrl: AlertController
+    private userSrvc: UserService, private loadingCtrl: LoadingController, private alertCtrl: AlertController,
+    private oneSignal: OneSignal
   ) {
     this.userSrvc.loggedIn()
-    .then( data => {
-      if (data.accessedStorage && data.user) {
-        this.rootPage = 'HomePage';
-      } else if (data.accessedStorage && !data.user) {
-        this.rootPage = 'LoginPage';
-      } else {
-        console.log('Error in accessing storage');
-      }
-    })
-    .catch(
-      err => {
-        console.log(err);
-      }
-    );
+      .then( data => {
+        if (data.accessedStorage && data.user) {
+          this.rootPage = 'HomePage';
+        } else if (data.accessedStorage && !data.user) {
+          this.rootPage = 'LoginPage';
+        } else {
+          console.log('Error in accessing storage');
+        }
+      })
+      .catch(
+        err => {
+          console.log(err);
+        }
+      );
     console.log(this.rootPage);
     console.log('Constructor');
     platform.ready().then(() => {
@@ -39,6 +42,8 @@ export class MyApp{
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      // this.oneSignalInit(); //initiallize oneSignal notifications
     });
   }
 
@@ -46,7 +51,29 @@ export class MyApp{
   //   console.log('OnInit');
 
   // }
+  oneSignalInit() {
+    this.oneSignal.startInit('b24fb657-1f5a-4cb0-942b-e210aac462ec', '89752286829');
+    
+    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
 
+    
+    
+    this.oneSignal.handleNotificationReceived().subscribe(() => {
+     // do something when notification is received
+    });
+    
+    this.oneSignal.handleNotificationOpened().subscribe(() => {
+      // do something when a notification is opened
+    });
+    
+    
+    this.oneSignal.endInit();
+
+    this.oneSignal.getIds().then( data => {
+      console.log(data);
+      this.userSrvc.deviceId = data.userId;
+    })
+  }
   onLoadPage(page: any) {
     this.nav.push(page);
     this.menuCtrl.close();

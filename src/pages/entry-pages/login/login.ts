@@ -41,7 +41,7 @@ export class LoginPage {
       content: 'Logging you in...'
     });
     loader.present();
-    this.authService.login(form.value.username, form.value.password)
+    this.authService.login(form.value.username, form.value.password, this.userService.deviceId)
       .subscribe(
         data => {
           loader.dismiss();

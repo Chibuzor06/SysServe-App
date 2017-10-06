@@ -4,6 +4,10 @@ import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 @Injectable()
+/**
+ * service for everything involving accessing (and sending) data
+ * to (and from) the server.
+ */
 export class DataAcessService {
   private vehicleCategories: string[];
   // private vehicleGroups: { category: string, vehicles: string[] }[];
@@ -23,9 +27,22 @@ export class DataAcessService {
     return this.http.get(query);
   }
 
+  updateTrip(serviceType: string, departure: string, destination: string, pickupDate: string, passengerName: string,
+    noOfPassengers: number, noOfDays: number, vehicleGroupID: number, id: number
+  ) {
+    const query: string = GlobalConstants.url + '/mobile/SubmitReservation.do?user.token=' + this.userSrvc.getUserToken() +
+    '&reservationTrip.serviceType=' + serviceType + '&reservationTrip.departure=' + departure +
+    '&reservationTrip.destination='+ destination +'&reservationTrip.pickUpDate=' + pickupDate +
+    '&reservationTrip.passengerName=' + (passengerName ? passengerName: '') +
+    '&reservationTrip.noOfPassenger=' + (noOfPassengers ? noOfPassengers: '') + '&reservationTrip.noOfDays=' + (noOfDays ? noOfDays : '') +
+    '&vehicleGroup.id=' + (vehicleGroupID ? vehicleGroupID: '') + '&reservationTrip.id=' + id;
+    console.log(query);
+    return this.http.get(query);
+  }
   loadVehicleGroups(category: string) {
     const query = GlobalConstants.url + '/mobile/GetVehicleGroups.do?user.token='+ this.userSrvc.getUserToken() +
       '&vehicleGroupCategory=' + category;
+    console.log(query);
     return this.http.get(query);
   }
   getVehicleCategories() {

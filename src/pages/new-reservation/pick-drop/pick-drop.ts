@@ -2,9 +2,10 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DataAcessService } from './../../../services/data-access.service';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, LoadingController, AlertController, NavController, Events } from 'ionic-angular';
+import { IonicPage, LoadingController, AlertController, NavController, Events, NavParams } from 'ionic-angular';
 
 import { googlemaps } from 'googlemaps';
+import { Trip } from '../../../models/trip.model';
 
 @IonicPage()
 @Component({
@@ -12,6 +13,9 @@ import { googlemaps } from 'googlemaps';
   templateUrl: './pick-drop.html'
 })
 export class PickDropPage implements OnInit{
+  vehicleChosen: boolean; //used to start the image loading spinner
+  mode: string //either edit or new
+  tripEdit: Trip;
 
   input1: HTMLInputElement; //departure input
   input2: HTMLInputElement; //destination input
@@ -22,11 +26,19 @@ export class PickDropPage implements OnInit{
   vehicleClass: string;
   vehicles: { id: number, make: string, model: string }[];
   vehicleGroupID: number;
+  noImageText: string;
 
   constructor( private dataAccessSrvc: DataAcessService, private loadingCtrl: LoadingController,
     private alertCtrl: AlertController, private navCtrl: NavController, private events: Events,
-    private domSanitizer: DomSanitizer
-  ) {}
+    private domSanitizer: DomSanitizer, private navParams: NavParams
+  ) {
+    this.mode = navParams.get('mode');
+    if (this.mode == 'edit') {
+      this.tripEdit = navParams.get('trip');
+      console.log(this.tripEdit);
+      // this.dateTime = new Date(this.tripEdit.pickupDate).toISOString();
+    }
+  }
 
   ngOnInit() {
     //Getting vehicle categories from server on page init.
@@ -80,6 +92,10 @@ export class PickDropPage implements OnInit{
       }
       // console.log(this.destination);
     });
+    if (this.mode == 'edit') {
+      this.input1.value = this.tripEdit.departure;
+      this.input2.value = this.tripEdit.destination;
+    }
   }
   onNewReservation(form: NgForm) {
     console.log(form.value);
@@ -150,11 +166,18 @@ export class PickDropPage implements OnInit{
   }
 
   onVehicleClassChosen(value: string) {
+    console.log('heretic');
     if (value == '' || !value) {
       return;
     }
+    if (!(value == this.vehicleClass)) {
+      console.log('heresy');
+      // this.vehicles = null;
+      this.noImageText = null;
+      this.vehicleChosen = false;
+    }
     const loader = this.loadingCtrl.create({
-      content: 'Loading ' + this.vehicleClass + ' category',
+      content: 'Loading ' + value + ' category',
       dismissOnPageChange: true,
       enableBackdropDismiss: true
     });
@@ -165,16 +188,18 @@ export class PickDropPage implements OnInit{
         this.vehicleGroupID = 0;
         // console.log(this.vehicles);
         loader.dismiss();
-
+        this.vehicleClass = value;
       },
       err => {
         loader.dismiss();
         console.log(err);
       }
     );
+    console.log('Vehicle Class', this.vehicleClass)
   }
 
   onVehicleChosen(id: number) {
+    this.vehicleChosen = true;
     const loader = this.loadingCtrl.create({
       content: 'Loading vehicle image',
       dismissOnPageChange: true,
@@ -185,11 +210,14 @@ export class PickDropPage implements OnInit{
     // console.log(id);
     this.dataAccessSrvc.loadVehicleImage(id).subscribe(
       data => {
-        if( data.json() == {} || !data.json()) {
+        if( data.json().encodedContent == null) {
           loader.dismiss();
+          this.noImageText = "Image currently Unavailable";
+          // console.log('ere');
           return;
         } else {
           loader.dismiss();
+          // console.log('eret', data);
           this.imageData += data.json().encodedContent;
           // console.log(this.imageData);
           this.safeImageUrl = this.domSanitizer.bypassSecurityTrustUrl(this.imageData);
