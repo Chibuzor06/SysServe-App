@@ -1,5 +1,5 @@
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { DataAcessService } from './../../../services/data-access.service';
+import { DataAccessService } from './../../../services/data-access.service';
 import { NgForm } from '@angular/forms';
 import { Component } from '@angular/core';
 import { IonicPage, LoadingController, AlertController, NavController, Events, NavParams } from 'ionic-angular';
@@ -32,13 +32,13 @@ export class DailyRentalPage{
   // passengerName: string;
 
 
-  constructor( private dataAccessSrvc: DataAcessService, private loadingCtrl: LoadingController,
+  constructor( private dataAccessSrvc: DataAccessService, private loadingCtrl: LoadingController,
     private alertCtrl: AlertController, private navCtrl: NavController, private events: Events,
     private domSanitizer: DomSanitizer, private navParams: NavParams
   ) {
-    this.mode = navParams.get('mode');
+    this.mode = this.navParams.get('mode');
     if (this.mode == 'edit') {
-      this.tripEdit = navParams.get('trip');
+      this.tripEdit = this.navParams.get('trip');
       console.log(this.tripEdit);
       // this.dateTime = new Date(this.tripEdit.pickupDate).toISOString();
     }
@@ -110,11 +110,19 @@ export class DailyRentalPage{
     const dateTime = form.value.dateTime.slice(0, 19);
     // console.log('New ', dateTime);
     // const returnDateTime = form.value.returnDateTime.slice(0, 19);
-
-    const reservation = this.dataAccessSrvc.createNewReservation('Daily Rental', form.value.departure, form.value.destination, dateTime,
+    let reservation;
+    if(this.mode == 'new') {
+      reservation = this.dataAccessSrvc.createNewReservation('Daily Rental', form.value.departure, form.value.destination, dateTime,
       form.value.passengerName,
       form.value.passengers, form.value.noOfDays,
       '', (form.value.vehicleGroupID ? form.value.vehicleGroupID : ''));
+    }else {
+      reservation = this.dataAccessSrvc.updateTrip('Daily Rental', form.value.departure, form.value.destination, dateTime,
+      form.value.passengerName,
+      form.value.passengers, form.value.noOfDays,
+      (form.value.vehicleGroupID ? form.value.vehicleGroupID : ''), this.tripEdit.ID);
+    }
+
     // loader.dismiss();
     reservation.subscribe(
       data => {

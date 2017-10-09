@@ -4,6 +4,7 @@ import { Trip } from './../../models/trip.model';
 import { TripsService } from './../../services/trips.service';
 import { Component, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
+import { DataAccessService } from '../../services/data-access.service';
 
 /**
  * Generated class for the WelcomePage page.
@@ -27,7 +28,7 @@ export class TripsPage implements OnDestroy{
   selectedTripIDs: {index: number, tripID : number}[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private tripService: TripsService,
+    private tripService: TripsService, private dataSrvc: DataAccessService,
     private events: Events, private alertCtrl: AlertController
   ) {
     this.selectedTripIDs = [];
@@ -134,8 +135,21 @@ export class TripsPage implements OnDestroy{
     }
     else {
       if (trip.selected) {
-        const position = this.selectedTripIDs.indexOf({index: index, tripID: trip.ID });
+        // console.log('{index: index, tripID: trip.ID }' , {index: index, tripID: trip.ID });
+        // const position = this.selectedTripIDs.indexOf({index: index, tripID: trip.ID });
+        // if (!(position < 0 )) {
+        //   this.selectedTripIDs.splice(position, 1);
+        //   console.log('Position: ', position, ' currently selected: ' ,this.selectedTripIDs);
+        // }
+        // console.log('Position: ', position, ' currently selected: ' ,this.selectedTripIDs);
+
+        const position = this.selectedTripIDs.findIndex(
+          item => {
+            return item.tripID == trip.ID;
+          }
+        );
         this.selectedTripIDs.splice(position, 1);
+        console.log('Position: ', position);
         trip.selected = false;
         trip.class = '';
         if (this.selectedTripIDs.length == 0) {
@@ -167,12 +181,22 @@ export class TripsPage implements OnDestroy{
   onCancelTrips() {
     const alert = this.alertCtrl.create({
       title: 'Warning!',
-      message: 'You are about to cancel ' + this.selectedTripIDs.length +' trip(s). Are you sure?',
+      message: 'You are about to cancel ' + this.selectedTripIDs.length + ' trip(s). Are you sure?',
       buttons: [
         {
           text: 'Yes',
           handler: () => {
+            let idArray = this.selectedTripIDs.map(
+              item => {
+                return item.tripID;
+              }
+            );
+            console.log(idArray);
+            // this.dataSrvc.cancelTrip().subscribe(
+            //   data => {
 
+            //   }
+            // );
           }
         },
         {

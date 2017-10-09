@@ -1,5 +1,5 @@
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { DataAcessService } from './../../../services/data-access.service';
+import { DataAccessService } from './../../../services/data-access.service';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, LoadingController, AlertController, NavController, Events, NavParams } from 'ionic-angular';
@@ -28,7 +28,7 @@ export class PickDropPage implements OnInit{
   vehicleGroupID: number;
   noImageText: string;
 
-  constructor( private dataAccessSrvc: DataAcessService, private loadingCtrl: LoadingController,
+  constructor( private dataAccessSrvc: DataAccessService, private loadingCtrl: LoadingController,
     private alertCtrl: AlertController, private navCtrl: NavController, private events: Events,
     private domSanitizer: DomSanitizer, private navParams: NavParams
   ) {
@@ -113,11 +113,23 @@ export class PickDropPage implements OnInit{
     // console.log('New ', dateTime);
     const returnDateTime = form.value.returnTrip? form.value.returnDateTime.slice(0, 19) : '';
 
-    const reservation = this.dataAccessSrvc.createNewReservation('Pick Up/Drop Off', form.value.departure, form.value.destination, dateTime,
+    // const reservation = this.dataAccessSrvc.createNewReservation('Pick Up/Drop Off', form.value.departure, form.value.destination, dateTime,
+    //   form.value.passengerName,
+    //   form.value.passengers, null,
+    //   returnDateTime, (form.value.vehicleGroupID ? form.value.vehicleGroupID : ''));
+    //   // loader.dismiss();
+    let reservation;
+    if(this.mode == 'new') {
+      reservation = this.dataAccessSrvc.createNewReservation('Pick Up/Drop Off', form.value.departure, form.value.destination, dateTime,
       form.value.passengerName,
       form.value.passengers, null,
       returnDateTime, (form.value.vehicleGroupID ? form.value.vehicleGroupID : ''));
-      // loader.dismiss();
+    }else {
+      reservation = this.dataAccessSrvc.updateTrip('Pick Up/Drop Off', form.value.departure, form.value.destination, dateTime,
+      form.value.passengerName,
+      form.value.passengers, null,
+      (form.value.vehicleGroupID ? form.value.vehicleGroupID : ''), this.tripEdit.ID);
+    }
 
     reservation.subscribe(
       data => {

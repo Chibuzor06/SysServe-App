@@ -1,4 +1,4 @@
-import { DataAcessService } from './../services/data-access.service';
+import { DataAccessService } from './../services/data-access.service';
 import { UserService } from './../services/user.service';
 import { SegmentService } from './../services/segment.service';
 import { TripsService } from './../services/trips.service';
@@ -34,7 +34,7 @@ import { OneSignal } from '@ionic-native/onesignal';
     UserService,
     TripsService,
     SegmentService,
-    DataAcessService,
+    DataAccessService,
     SplashScreen,
     OneSignal,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

@@ -1,4 +1,4 @@
-import { DataAcessService } from './../../../../services/data-access.service';
+import { DataAccessService } from './../../../../services/data-access.service';
 import { NgForm } from '@angular/forms';
 import { Trip } from './../../../../models/trip.model';
 import { Component } from '@angular/core';
@@ -18,7 +18,7 @@ export class RateTripPage {
   rated: boolean = false;
 
   constructor(
-    private navParams: NavParams, private dataSrvc: DataAcessService, private alertCtrl: AlertController,
+    private navParams: NavParams, private dataSrvc: DataAccessService, private alertCtrl: AlertController,
     private navCtrl: NavController
   ) {
     this.trip = this.navParams.get('trip')? this.navParams.get('trip'): {};

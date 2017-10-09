@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
  * service for everything involving accessing (and sending) data
  * to (and from) the server.
  */
-export class DataAcessService {
+export class DataAccessService {
   private vehicleCategories: string[];
   // private vehicleGroups: { category: string, vehicles: string[] }[];
   constructor (private http: Http, private userSrvc: UserService) {}
@@ -39,6 +39,21 @@ export class DataAcessService {
     console.log(query);
     return this.http.get(query);
   }
+
+  cancelTrip(id: number[]) {
+    let idString: string = ''; // comma seperated string of numbers
+    id.forEach(
+      num => {
+        idString += num + ',';
+      }
+    )
+    idString = idString.slice(0, idString.length-1);
+    const query: string = GlobalConstants.url + '/mobile/CancelReservationTrip.do?' +
+    'user.token=' + this.userSrvc.getUserToken() + '&reservationTripIds=' +  idString; //1,2,3,4,5'
+    console.log(query);
+    return this.http.get(query);
+  }
+
   loadVehicleGroups(category: string) {
     const query = GlobalConstants.url + '/mobile/GetVehicleGroups.do?user.token='+ this.userSrvc.getUserToken() +
       '&vehicleGroupCategory=' + category;
